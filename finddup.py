@@ -5,10 +5,11 @@ import numpy as np
 
 mtorigin = "https://moztrap.mozilla.org"
 # Total 10135
-limit = 10136
-#topCount = 5
-#topCount = limit/2
-topCount = 500
+# limit = 10135
+limit = 100 # for small scale testing
+# topCount = 5
+topCount = limit/2
+# topCount = 500
 productversion=217 #Firefox OS v.22.
 #https://moztrap.mozilla.org/api/v1/caseversion/?format=json&productversion=217
 #localJson="./mid_217.json"
@@ -31,9 +32,8 @@ def loadLocalCaseversions(filename):
         return json.load(f)
 
 # main
-#caseversions = downloadCaseversions()
-
-caseversions = loadLocalCaseversions(localJson)
+caseversions = downloadCaseversions()
+#caseversions = loadLocalCaseversions(localJson)
 #print json.dumps(caseversions['objects'][0])
 
 caseversion_texts = map(lambda x: json.dumps(x), caseversions['objects'])
