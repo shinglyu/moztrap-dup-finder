@@ -8,8 +8,9 @@ mtorigin = "https://moztrap.mozilla.org"
 # limit = 10135
 limit = 100 # for small scale testing
 # topCount = 5
-topCount = limit/2
+# topCount = limit/2
 # topCount = 500
+topCount = 500
 productversion=217 #Firefox OS v.22.
 #https://moztrap.mozilla.org/api/v1/caseversion/?format=json&productversion=217
 #localJson="./mid_217.json"
@@ -69,7 +70,7 @@ while len(topranks) < topCount:
 #print str(r[i]) + "," + str(c[i]) + " " + str(pairwise_similarity[r[i], c[i]])
 
 for item in topranks:
-    print("{0}\t is similiar to {1}\t with socre {2}".format(
+    print("{0}\t is similiar to\t {1}\t with score\t {2}".format(
             item['r'],
             item['c'],
             #caseversions['objects'][item['r']]['id'],
