@@ -97,6 +97,7 @@ def finddup(caseversions):
         if filters.isDifferentModule(item['diff']):
             topranks[i]['are_dup']= False
             topranks[i]['reason']= "diffmodule"
+
     #topranks = topranks[:topCount] # Only get the top
 
     #for item in topranks:
@@ -140,4 +141,8 @@ output.printNotDup(onoffs, "is an on/off pair")
 diffModules = filter(lambda x: not x['are_dup'] and x['reason'] == "diffmodule", topranks)
 output.printNotDup(diffModules, "belong to different module")
 
+with open('output/latest_output.json', 'w') as f:
+    json.dump(topranks, f)
+
 output.drawGraph(realdups)
+
