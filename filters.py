@@ -12,7 +12,7 @@ def calcDiff(r, c, caseversions):
     diffwords = filter(lambda x: x != None, diffwords)
     noisewords = [",", "\"", "\'", "}", "{", ")", "("]
     for word in noisewords:
-        diffwords = map(lambda x: x.strip(word), diffwords)
+        diffwords = map(lambda x: x.strip(word).lower(), diffwords)
     #print(json.dumps(diffwords, indent=2))
     #print(diffwords)
     #print(isOnOffPairs(diffwords))
@@ -26,7 +26,16 @@ def isOnOffPairs(diff):
         ("correct", "wrong"),
     ]
     for keyword in keywords:
-        if keyword[0] in diff and keyword[1] in diff:
+        if keyword[0].lower() in diff and keyword[1].lower() in diff:
+            return True
+    return False
+
+def isDifferentModule(diff):
+    keywords = [
+        ("wifi", "bluetooth"),
+    ]
+    for keyword in keywords:
+        if keyword[0].lower() in diff and keyword[1].lower() in diff:
             return True
     return False
 
