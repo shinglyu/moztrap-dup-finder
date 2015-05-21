@@ -88,15 +88,15 @@ def finddup(caseversions):
     for i in range(0, topCount):
         item = topranks[i]
         item['are_dup']=True
-        item['diff'] = filters.calcDiff(item['r'], item['c'], caseversions)
-
-        if filters.isOnOffPairs(item['diff']):
-            topranks[i]['are_dup']= False
-            topranks[i]['reason']= "onoff"
-
-        if filters.isDifferentModule(item['diff']):
-            topranks[i]['are_dup']= False
-            topranks[i]['reason']= "diffmodule"
+#        item['diff'] = filters.calcDiff(item['r'], item['c'], caseversions)
+#
+#        if filters.isOnOffPairs(item['diff']):
+#            topranks[i]['are_dup']= False
+#            topranks[i]['reason']= "onoff"
+#
+#        if filters.isDifferentModule(item['diff']):
+#            topranks[i]['are_dup']= False
+#            topranks[i]['reason']= "diffmodule"
 
     #topranks = topranks[:topCount] # Only get the top
 

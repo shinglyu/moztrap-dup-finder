@@ -1,9 +1,12 @@
 import csv
 import json
 import sys
+from sklearn import metrics
 
 groundtruth_file = "./input/ground-truth-217.csv"
-output_file = "./output/latest_output.json"
+#output_file = "./output/latest_output.json"
+#output_file = "./output/full_22_tfidf_remove_onoff_and_diffmodule.json"
+output_file = "./output/full_22_tfidf_naive.json"
 
 print "Checking {0} against {1}".format(output_file, groundtruth_file)
 
@@ -36,6 +39,10 @@ with open(output_file, 'r') as f:
 match = 0
 mismatch = 0
 nomatch = 0
+TP = 0
+FP = 0
+FN = 0
+TN = 0
 print len(groundtruth)
 for idx, truth_entry in enumerate(groundtruth):
 
@@ -50,18 +57,40 @@ for idx, truth_entry in enumerate(groundtruth):
             #print answer_entry['are_dup']
             if truth_entry['are_dup'] is None:
                 continue
-            if truth_entry['are_dup'] == answer_entry['are_dup']:
-                match += 1
-            else:
-                mismatch += 1
+            if truth_entry['are_dup'] and answer_entry['are_dup']:
+                TP += 1
+            elif not truth_entry['are_dup'] and answer_entry['are_dup']:
+                FP += 1
+            elif truth_entry['are_dup'] and not answer_entry['are_dup']:
+                FN += 1
+            elif not truth_entry['are_dup'] and not answer_entry['are_dup']:
+                TN += 1
 
-nomatch = len(myanswer) - match - mismatch
+nomatch = len(myanswer) - TP - FP - FN - TN
+
+percision = float(TP) / float(TP + FP)
+
+recall = float(TP) / float(TP + FN)
+
+F1 = 2.0*TP / float(2*TP + FP + FN)
+
+accuracy = float(TP + TN) / float(TP + FP + FN + TN)
 
 
 print('\n')
-print("correct: {0} \tincorrect: {1} \tnot in groundtruth:\t {2}\ttotal: \t{3}".format(match, mismatch, nomatch, len(myanswer)))
-accuracy = float(match)/float(match + mismatch)
-print("accuracy: {0:0.3f}%".format(accuracy * 100.0))
+print("TP: " + str(TP))
+print("TN: " + str(TN))
+print("FP: " + str(FP))
+print("FN: " + str(FN))
+print("Not in groundtruth: " + str(nomatch))
+
+print("(accuracy: {0:0.2f}%)".format(accuracy * 100.0))
+print("percision: {0:0.2f}%".format(percision * 100.0))
+print("recall: {0:0.2f}%".format(recall * 100.0))
+print("F1: {0:0.2f}".format(F1))
+#print("correct: {0} \tincorrect: {1} \tnot in groundtruth:\t {2}\ttotal: \t{3}".format(match, mismatch, nomatch, len(myanswer)))
+#accuracy = float(match)/float(match + mismatch)
+#print("accuracy: {0:0.3f}%".format(accuracy * 100.0))
 
 #invalid = filter(lambda x: x["are_dup"] == "N", result)
 #valid = filter(lambda x: x["are_dup"] == "Y", result)
