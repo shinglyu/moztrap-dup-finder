@@ -8,10 +8,12 @@ from sklearn import cross_validation, metrics
 import csv
 import pdb
 import pickle
+import logging
 
 import filters
 from progressbar import ProgressBar
 
+logging.basicConfig(level=logging.INFO)
 mtorigin = "https://moztrap.mozilla.org"
 # Total 10135
 limit = 10135
@@ -70,7 +72,6 @@ def loadGroundTruth(filename):
     return {'ids': ids, 'targets': are_dups}
 
 #caseversions = downloadCaseversions()
-caseversions = loadLocalCaseversions(localJson)
 #print json.dumps(caseversions['objects'][0])
 
 def prepare_training_data(caseversions):
@@ -283,8 +284,16 @@ def perdict(caseversions, model):
 #
 #output.drawGraph(realdups)
 #
-def main():
-    # TODO: use cached model
+def main(args):
+    if args.mode == 'fit':
+        main_fit()
+    elif args.mode == 'cross-validate':
+        main_cross_validate()
+    elif args.mode == 'perdict':
+        main_perdict()
+
+def main_fit():
+    caseversions = loadLocalCaseversions(localJson)
     vectorized_features, targets = prepare_training_data(caseversions)
     model = fit(vectorized_features, targets)
 
@@ -296,10 +305,41 @@ def main():
     with open("output/model.dot", 'w') as f:
         f = tree.export_graphviz(model, out_file=f)
 
-    with open("output/latest_model.pkl", 'w') as f:
+    model_filename = "output/latest_model.pkl"
+    with open(model_filename, 'w') as f:
         pickle.dump(model, f)
 
-    topranks = perdict(caseversions, model)
+    logging.info("Model saved to " + model_filename)
+
+def main_cross_validate():
+    caseversions = loadLocalCaseversions(localJson)
+    vectorized_features, targets = prepare_training_data(caseversions)
+    model = fit(vectorized_features, targets)
+
+    predicted = cross_validation.cross_val_predict(model, vectorized_features, targets, cv=3)
+    print(metrics.accuracy_score(targets, predicted))
+    print(metrics.classification_report(targets, predicted))
+
+def main_perdict():
+    # TODO: load existing model if provided
+    caseversions = loadLocalCaseversions(localJson)
+    vectorized_features, targets = prepare_training_data(caseversions)
+    model = fit(vectorized_features, targets)
+
+
+    #Drawing decision tree
+    #sudo apt-get install graphviz
+    #dot -Tpdf iris.dot -o iris.pdf
+    #from sklearn.externals.six import StringIO
+    with open("output/model.dot", 'w') as f:
+        f = tree.export_graphviz(model, out_file=f)
+
+    model_filename = "output/latest_model.pkl"
+    with open(model_filename, 'w') as f:
+        pickle.dump(model, f)
+    logging.info("Model saved to " + model_filename)
+
+    topranks = perdict(caseversions, model) # This can be interrupted by Ctrl+C
 
     print("preparing data for saving to file")
     topranks['perdictions'] = topranks['perdictions'].tolist()
@@ -307,10 +347,13 @@ def main():
     with open('output/latest_output.json', 'w') as f:
         json.dump(topranks, f, indent=2)
 
-    predicted = cross_validation.cross_val_predict(model, vectorized_features, targets, cv=3)
-    print(metrics.accuracy_score(targets, predicted))
-    print(metrics.classification_report(targets, predicted))
-
-
 if __name__ == '__main__':
-    main()
+    import argparse
+
+    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser.add_argument('mode', choices=['fit', 'cross-validate', 'perdict'],
+                        help='The mode you want to learn')
+
+    args = parser.parse_args()
+
+    main(args)
