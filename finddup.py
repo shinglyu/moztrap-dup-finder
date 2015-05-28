@@ -1,10 +1,16 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 import urllib2
 import json
-import numpy as np
+import itertools
+from sklearn.feature_extraction import DictVectorizer
+from sklearn import tree
+from sklearn import cross_validation, metrics
+import csv
+import pdb
+import pickle
 
-import output
 import filters
+from progressbar import ProgressBar
 
 mtorigin = "https://moztrap.mozilla.org"
 # Total 10135
@@ -15,11 +21,12 @@ limit = 10135
 # topCount = limit/2
 # topCount = 500
 topCount = 500
-#topCount = 100
-productversion=217 #Firefox OS v.22.
-#https://moztrap.mozilla.org/api/v1/caseversion/?format=json&productversion=217
-#localJson="./mid_217.json"
-localJson="./input/full_217.json"
+# topCount = 100
+productversion = 217  # Firefox OS v.22.
+# https://moztrap.mozilla.org/api/v1/caseversion/?format=json&productversion=217
+localJson = "./input/mid_217.json"
+#localJson="./input/full_217.json"
+groundtruth_filename= "./input/ground-truth-217.csv"
 
 
 def downloadCaseversions():
@@ -38,56 +45,200 @@ def loadLocalCaseversions(filename):
         return json.load(f)
 
 
+def loadGroundTruth(filename):
+    ids = []
+    are_dups = []
+    with open(filename, 'r') as csvfile:
+        rows = csv.reader(csvfile, delimiter=",", quotechar="\"")
+        for row in rows:
+            if row[0] == "Y":
+                are_dup = True
+            elif row[0] == "N":
+                are_dup = False
+            else:
+                continue # SKIP Not labeled!
+                #are_dup = None
+            case1   = row[1]
+            case2   = row[2]
+            # similarity = row[3]
+            # comment = row[4]
+            ids.append({
+                "lhs_id": case1,
+                "rhs_id": case2,
+            })
+            are_dups.append(are_dup)
+    return {'ids': ids, 'targets': are_dups}
+
 #caseversions = downloadCaseversions()
 caseversions = loadLocalCaseversions(localJson)
 #print json.dumps(caseversions['objects'][0])
 
-def finddup(caseversions):
+def prepare_training_data(caseversions):
 
-    caseversion_texts = map(lambda x: json.dumps(x), caseversions['objects'])
+    #print(caseversions['meta'])
+    caseversions_sorted_by_id = sorted(caseversions['objects'], key=lambda x: x['id'])
+    #idx_from_caseversion_id = dict((d['id'], dict(d, index=i)) for (i, d) in enumerate(x))
+    idx_from_caseversion_id = dict((str(d['id']), i) for (i, d) in enumerate(caseversions_sorted_by_id))
+    #TODO: can we reduce the number of cases here?
+    #TODO: find the intersection between the groundtruth and the caseversions
+    caseversion_texts = map(lambda x: json.dumps(x), caseversions_sorted_by_id)
 
     vect = TfidfVectorizer(min_df=1)
     tfidf = vect.fit_transform(caseversion_texts)
     pairwise_similarity = tfidf * tfidf.T
-#print pairwise_similarity.A
 
-#sorting
-    reindex = np.argsort(-pairwise_similarity.A.flatten())
-    r, c = divmod(reindex, pairwise_similarity.shape[1])
+    groundtruth = loadGroundTruth(groundtruth_filename)
+    #print(pairwise_similarity.shape)
+    features = []
+    #case_ids= []
+    #pdb.set_trace()
+    p = ProgressBar(len(list(itertools.combinations(range(len(caseversion_texts)),2))))
 
-    topranks = []
-#    counter = 0
-#    while len(topranks) < topCount:
-#        if r[counter] < c[counter]:
-#            topranks.append({
-#                "r": r[counter],
-#                "c": c[counter],
-#                "lhs_id": caseversions['objects'][r[counter]]['id'],
-#                "rhs_id": caseversions['objects'][c[counter]]['id'],
-#                "val": pairwise_similarity[r[counter], c[counter]],
-#            "diff": filters.calcDiff(r[counter], c[counter], caseversions)
-#            })
-#        counter += 1
+#        item['diff'] = filters.calcDiff(item['r'], item['c'], caseversions)
+# #        if filters.isOnOffPairs(item['diff']):
+#            topranks[i]['are_dup']= False
+#            topranks[i]['reason']= "onoff"
 #
-#allPairs = zip(r,c)
-    dups = filter(lambda (ri,ci): ri < ci, zip(r,c))
+#        if filters.isDifferentModule(item['diff']):
+#            topranks[i]['are_dup']= False
+#            topranks[i]['reason']= "diffmodule"
+    counter = 0
+    for pair in groundtruth['ids']:
+        # TODO: handle if groundtruth is not in the small set
+        #Extract similarity
+        try:
+            r = idx_from_caseversion_id[pair['lhs_id']]
+            c = idx_from_caseversion_id[pair['rhs_id']]
+            similarity = pairwise_similarity[r, c] #"tfidf_diff": tfidf[i] - tfidf[j]
 
-    for ri, ci in dups:
-        if ri < ci:
-            topranks.append({
-                "r": ri,
-                "c": ci,
-                "lhs_id": caseversions['objects'][ri]['id'], #FIXME: rename to rhs/lhs
-                "rhs_id": caseversions['objects'][ci]['id'],
-                "val": pairwise_similarity[ri, ci],
-                "are_dup" : False,
-                "reason" : ""
-                #"diff": filters.calcDiff(ri, ci, caseversions)
+            diff  = filters.calcDiff(caseversion_texts[r], caseversion_texts[c])
+            isonoff = filters.isOnOffPairs(diff)
+            isdiffmodule = filters.isDifferentModule(diff)
+
+        except KeyError:
+            similarity = 0 # Is this good?
+            isonoff = False
+            isdiffmodule = False
+            continue
+
+        features.append({
+            "similarity": similarity,
+            "isonoff": isonoff,
+            "isdiffmodule": isdiffmodule
+        })
+        p.update(counter)
+        counter += 1
+    #for i, j in itertools.combinations(range(len(caseversion_texts)),2):
+        #print([i,j])
+        #case_ids.append({
+        #    'lhs_id':caseversions_sorted_by_id[i]['id'],
+        #    'rhs_id':caseversions_sorted_by_id[j]['id']
+        #})
+        #features.append({
+        #    "similarity": pairwise_similarity[i, j],
+        #    #"tfidf_diff": tfidf[i] - tfidf[j]
+        #})
+
+    #print(json.dumps(features, indent=2))
+
+    vec = DictVectorizer()
+    vectorized_features = vec.fit_transform(features)
+
+    p.done()
+    return (vectorized_features, groundtruth['targets'])
+
+def fit(vectorized_features, targets):
+    #vectorized_features, targets = prepare_training_data(caseversions)
+    #TODO: load groundtruth to target
+    #print(features)
+    #naive_target = map(lambda x: x['similarity'] > 0.8, features)
+    #print(naive_target.count(True))
+    #print(naive_target.count(False))
+    #>>> feature = [[0, 0], [1, 1]]
+    #>>> target = [0, 1]
+    clf = tree.DecisionTreeClassifier(max_depth=3)
+    #clf = clf.fit(vectorized_features, groundtruth['targets'])
+    clf = clf.fit(vectorized_features, targets)
+    return clf
+
+def perdict(caseversions, model):
+
+    #print(caseversions['meta'])
+    caseversions_sorted_by_id = sorted(caseversions['objects'], key=lambda x: x['id'])
+    caseversion_texts = map(lambda x: json.dumps(x), caseversions_sorted_by_id)
+
+    vect = TfidfVectorizer(min_df=1)
+    tfidf = vect.fit_transform(caseversion_texts)
+    pairwise_similarity = tfidf * tfidf.T
+
+    #print(pairwise_similarity.shape)
+    features = []
+    case_ids= []
+    #pdb.set_trace()
+    p = ProgressBar(len(list(itertools.combinations(range(len(caseversion_texts)),2))))
+
+    counter = 0
+    for i, j in itertools.combinations(range(len(caseversion_texts)),2):
+        try:
+            p.update(counter)
+            counter += 1
+            #print([i,j])
+            case_ids.append({
+                'lhs_id':caseversions_sorted_by_id[i]['id'],
+                'rhs_id':caseversions_sorted_by_id[j]['id']
             })
+            diff  = filters.calcDiff(
+                json.dumps(caseversions_sorted_by_id[i]),
+                json.dumps(caseversions_sorted_by_id[j])
+            )
+            features.append({
+                "similarity": pairwise_similarity[i, j],
+                "isonoff": filters.isOnOffPairs(diff),
+                "isdiffmodule": filters.isDifferentModule(diff)
+                #"tfidf_diff": tfidf[i] - tfidf[j]
+            })
+        except KeyboardInterrupt:
+            if len(case_ids) != len(features):
+                old_len = min(len(case_ids), len(features))
+                case_ids = case_ids[:old_len]
+                features = features[:old_len]
+            break
 
-    for i in range(0, topCount):
-        item = topranks[i]
-        item['are_dup']=True
+
+    vec = DictVectorizer()
+    vectorized_features = vec.fit_transform(features)
+    p.done()
+
+    return {'ids': case_ids, 'perdictions':model.predict(vectorized_features)}
+
+    #print(features)
+
+    #print pairwise_similarity.A
+
+    #sorting by similarity
+    #reindex = np.argsort(-pairwise_similarity.A.flatten())
+    #r, c = divmod(reindex, pairwise_similarity.shape[1])
+
+    #topranks = []
+    # Only use the lower half of the similarity matrix
+    #dups = filter(lambda (ri,ci): ri < ci, zip(r,c))
+
+    #for ri, ci in dups:
+    #    if ri < ci:
+    #        topranks.append({
+    #            #"r": ri,
+    #            #"c": ci,
+    #            #"lhs_id": caseversions['objects'][ri]['id'], #FIXME: rename to rhs/lhs
+    #            #"rhs_id": caseversions['objects'][ci]['id'],
+    #            "similarity": pairwise_similarity[ri, ci],
+                #"are_dup" : False,
+    #            #"reason" : ""
+    #            #"diff": filters.calcDiff(ri, ci, caseversions)
+    #        })
+#
+#    for i in range(0, topCount):
+#        item = topranks[i]
+#        item['are_dup']=True
 #        item['diff'] = filters.calcDiff(item['r'], item['c'], caseversions)
 #
 #        if filters.isOnOffPairs(item['diff']):
@@ -118,7 +269,7 @@ def finddup(caseversions):
 
 
     #output.printNotDup(onoffs, "is an on/off pair")
-    return topranks
+#    return topranks
 
 #onoffs = filter(lambda x: filters.isOnOffPairs(x['diff']), topranks)
 #output.printNotDup(onoffs, "is an on/off pair")
@@ -129,20 +280,37 @@ def finddup(caseversions):
 #topranks = filter(lambda x: not filters.isOnOffPairs(x['diff']), topranks)
 #topranks = filter(lambda x: not filters.isDifferentModule(x['diff']), topranks)
 
-topranks = finddup(caseversions)
+#
+#output.drawGraph(realdups)
+#
+def main():
+    # TODO: use cached model
+    vectorized_features, targets = prepare_training_data(caseversions)
+    model = fit(vectorized_features, targets)
 
-realdups = filter(lambda x: x['are_dup'], topranks)
 
-output.printDups(realdups)
+    #Drawing decision tree
+    #sudo apt-get install graphviz
+    #dot -Tpdf iris.dot -o iris.pdf
+    #from sklearn.externals.six import StringIO
+    with open("output/model.dot", 'w') as f:
+        f = tree.export_graphviz(model, out_file=f)
 
-onoffs = filter(lambda x: not x['are_dup'] and x['reason'] == "onoff", topranks)
-output.printNotDup(onoffs, "is an on/off pair")
+    with open("output/latest_model.pkl", 'w') as f:
+        pickle.dump(model, f)
 
-diffModules = filter(lambda x: not x['are_dup'] and x['reason'] == "diffmodule", topranks)
-output.printNotDup(diffModules, "belong to different module")
+    topranks = perdict(caseversions, model)
 
-with open('output/latest_output.json', 'w') as f:
-    json.dump(topranks, f)
+    print("preparing data for saving to file")
+    topranks['perdictions'] = topranks['perdictions'].tolist()
+    print("saving to file")
+    with open('output/latest_output.json', 'w') as f:
+        json.dump(topranks, f, indent=2)
 
-output.drawGraph(realdups)
+    predicted = cross_validation.cross_val_predict(model, vectorized_features, targets, cv=3)
+    print(metrics.accuracy_score(targets, predicted))
+    print(metrics.classification_report(targets, predicted))
 
+
+if __name__ == '__main__':
+    main()
