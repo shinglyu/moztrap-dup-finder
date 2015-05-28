@@ -16,7 +16,7 @@ from progressbar import ProgressBar
 logging.basicConfig(level=logging.INFO)
 mtorigin = "https://moztrap.mozilla.org"
 # Total 10135
-limit = 10135
+limit = 10142
 #limit = 100 # for small scale testing
 # limit = 5 # for small scale testing
 # topCount = 5
@@ -26,8 +26,9 @@ topCount = 500
 # topCount = 100
 productversion = 217  # Firefox OS v.22.
 # https://moztrap.mozilla.org/api/v1/caseversion/?format=json&productversion=217
-localJson = "./input/mid_217.json"
+#localJson = "./input/mid_217.json"
 #localJson="./input/full_217.json"
+localJson="./input/full_217.json.full"
 groundtruth_filename= "./input/ground-truth-217.csv"
 
 
@@ -177,6 +178,11 @@ def perdict(caseversions, model):
     case_ids= []
     #pdb.set_trace()
     p = ProgressBar(len(list(itertools.combinations(range(len(caseversion_texts)),2))))
+
+    #sorting by similarity
+    #reindex = np.argsort(-pairwise_similarity.A.flatten())
+    #r, c = divmod(reindex, pairwise_similarity.shape[1])
+    #dups = filter(lambda (ri,ci): ri < ci, zip(r,c))
 
     counter = 0
     for i, j in itertools.combinations(range(len(caseversion_texts)),2):

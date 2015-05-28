@@ -1,9 +1,9 @@
 import json
 import difflib
 
-def calcDiff(r, c, caseversions):
-    lhs = json.dumps(caseversions['objects'][r]).split(' ')
-    rhs = json.dumps(caseversions['objects'][c]).split(' ')
+def calcDiff(lhs_text, rhs_text):
+    lhs = lhs_text.split(' ')
+    rhs = rhs_text.split(' ')
     d = difflib.Differ()
     diff = list(d.compare(lhs, rhs))
     #print(json.dumps(diff, indent=2))
