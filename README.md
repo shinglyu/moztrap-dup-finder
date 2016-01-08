@@ -7,7 +7,12 @@ Run `install.sh` (for Ubuntu)
 
 # Usage
 
-Run `python finddup.py`, a list of potential duplications will be printed to `stdout`, also a network graph will be created.
+* Download test cases from Moztrap using `download_sample.sh`
+* Manually mark the duplications as in `input/ground-truth-217.csv`
+* Edit the `config.py` to add your new training data and perdict data files
+* Run `python finddup.py fit` to generate a model (only use `trainLocalJson`)
+* Run `python finddup.py cross-val` to do cross validation on feature and model parameters (only use `trainLocalJson`)
+* Run `python finddup.py perdict` to create a model using `trainLocalJson` + `groundtruth_filename` and use that model to make perdictions on `perdictLocalJson`.
 
 # Tips
 
