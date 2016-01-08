@@ -58,13 +58,18 @@ def printNotDup(notdups, reason):
 
 def printDups(dups):
     for item in dups:
-        print("{0}\t is similiar to\t {1}\t with score\t {2}".format(
+        # print("{0}\t is similiar to\t {1}\t with score\t {2}".format(
+        #         item["lhs_id"],
+        #         item["rhs_id"],
+        #         #caseversions['objects'][item["lhs_id"]]['id'],
+        #         #caseversions['objects'][item["rhs_id"]]['id'],
+        #         item["val"])
+        #     ),
+        print("{0}\t{1}".format(
                 item["lhs_id"],
-                item["rhs_id"],
-                #caseversions['objects'][item["lhs_id"]]['id'],
-                #caseversions['objects'][item["rhs_id"]]['id'],
-                item["val"])
-            ),
+                item["rhs_id"]
+            ))
+
         print("\thttp://shinglyu.github.io/moztrap-new-ui/diff.html?lhs={0}&rhs={1}".format(
                 item["lhs_id"],
                 item["rhs_id"]

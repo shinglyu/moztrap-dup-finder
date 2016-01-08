@@ -14,23 +14,9 @@ import filters
 from progressbar import ProgressBar
 
 logging.basicConfig(level=logging.INFO)
-mtorigin = "https://moztrap.mozilla.org"
-# Total 10135
-limit = 10142
-#limit = 100 # for small scale testing
-# limit = 5 # for small scale testing
-# topCount = 5
-# topCount = limit/2
-# topCount = 500
-topCount = 500
-# topCount = 100
-productversion = 217  # Firefox OS v.22.
-# https://moztrap.mozilla.org/api/v1/caseversion/?format=json&productversion=217
-#localJson = "./input/mid_217.json"
-#localJson="./input/full_217.json"
-localJson="./input/full_217.json.full"
-groundtruth_filename= "./input/ground-truth-217.csv"
 
+from config import *
+import output
 
 def downloadCaseversions():
     # query = query.replace(" ", "\%20")
@@ -299,7 +285,7 @@ def main(args):
         main_perdict()
 
 def main_fit():
-    caseversions = loadLocalCaseversions(localJson)
+    caseversions = loadLocalCaseversions(trainLocalJson)
     vectorized_features, targets = prepare_training_data(caseversions)
     model = fit(vectorized_features, targets)
 
@@ -318,7 +304,7 @@ def main_fit():
     logging.info("Model saved to " + model_filename)
 
 def main_cross_validate():
-    caseversions = loadLocalCaseversions(localJson)
+    caseversions = loadLocalCaseversions(trainLocalJson)
     vectorized_features, targets = prepare_training_data(caseversions)
     model = fit(vectorized_features, targets)
 
@@ -328,7 +314,7 @@ def main_cross_validate():
 
 def main_perdict():
     # TODO: load existing model if provided
-    caseversions = loadLocalCaseversions(localJson)
+    caseversions = loadLocalCaseversions(trainLocalJson)
     vectorized_features, targets = prepare_training_data(caseversions)
     model = fit(vectorized_features, targets)
 
@@ -345,13 +331,22 @@ def main_perdict():
         pickle.dump(model, f)
     logging.info("Model saved to " + model_filename)
 
-    topranks = perdict(caseversions, model) # This can be interrupted by Ctrl+C
+    predictCaseversions = loadLocalCaseversions(perdictLocalJson)
+    topranks = perdict(predictCaseversions, model) # This can be interrupted by Ctrl+C
 
     print("preparing data for saving to file")
     topranks['perdictions'] = topranks['perdictions'].tolist()
     print("saving to file")
-    with open('output/latest_output.json', 'w') as f:
+    outputFilename = 'output/latest_output.json'
+    with open(outputFilename , 'w') as f:
         json.dump(topranks, f, indent=2)
+    print(outputFilename + " created")
+
+    dups = zip(topranks['ids'], topranks['perdictions'])
+    dups = filter(lambda x: x[1], dups)
+    dups = map(lambda x: x[0], dups)
+
+    print(output.printDups(dups))
 
 if __name__ == '__main__':
     import argparse
