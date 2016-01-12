@@ -68,7 +68,7 @@ def printDups(dups):
         print("{0}\t{1}".format(
                 item["lhs_id"],
                 item["rhs_id"]
-            ))
+            )),
 
         print("\thttp://shinglyu.github.io/moztrap-new-ui/diff.html?lhs={0}&rhs={1}".format(
                 item["lhs_id"],

@@ -13,6 +13,7 @@ Run `install.sh` (for Ubuntu)
 * Run `python finddup.py fit` to generate a model (only use `trainLocalJson`)
 * Run `python finddup.py cross-val` to do cross validation on feature and model parameters (only use `trainLocalJson`)
 * Run `python finddup.py perdict` to create a model using `trainLocalJson` + `groundtruth_filename` and use that model to make perdictions on `perdictLocalJson`.
+* If you need case ID and links, run `add_case_id_to_output.py`, remember to modify the output file path in the script.
 
 # Tips
 
