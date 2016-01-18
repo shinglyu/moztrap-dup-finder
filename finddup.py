@@ -18,6 +18,7 @@ logging.basicConfig(level=logging.INFO)
 from config import *
 import output
 
+#TODO: we should probably do this in the shell script, not here, too slow
 def downloadCaseversions():
     # query = query.replace(" ", "\%20")
     # baseurl = "https://developer.mozilla.org/en-US/search?format=json&q="
@@ -55,7 +56,7 @@ def loadGroundTruth(filename):
                 "lhs_id": case1,
                 "rhs_id": case2,
             })
-            are_dups.append(are_dup)
+            are_dups.append(are_dup) #TODO: change to X/Dup/Merge tags
     return {'ids': ids, 'targets': are_dups}
 
 #caseversions = downloadCaseversions()
@@ -144,6 +145,7 @@ def fit(vectorized_features, targets):
     #print(naive_target.count(False))
     #>>> feature = [[0, 0], [1, 1]]
     #>>> target = [0, 1]
+    # TODO: make the max_depth a command line option
     clf = tree.DecisionTreeClassifier(max_depth=3)
     #clf = clf.fit(vectorized_features, groundtruth['targets'])
     clf = clf.fit(vectorized_features, targets)
@@ -157,6 +159,11 @@ def perdict(caseversions, model):
 
     vect = TfidfVectorizer(min_df=1)
     tfidf = vect.fit_transform(caseversion_texts)
+    # TODO: abstract the pairwise_similarity extraction process
+    # TODO: We need to do something like so we can add/remove features with ease
+    #       for feature in features:
+    #           feat = feature.extract(data)
+    #           features.append(feat)
     pairwise_similarity = tfidf * tfidf.T
 
     #print(pairwise_similarity.shape)
@@ -203,6 +210,8 @@ def perdict(caseversions, model):
     p.done()
 
     return {'ids': case_ids, 'perdictions':model.predict(vectorized_features)}
+
+    # TODO: remove the comment out code below
 
     #print(features)
 
@@ -277,6 +286,7 @@ def perdict(caseversions, model):
 #output.drawGraph(realdups)
 #
 def main(args):
+    # TODO: split this into three files
     if args.mode == 'fit':
         main_fit()
     elif args.mode == 'cross-validate':
@@ -286,6 +296,8 @@ def main(args):
 
 def main_fit():
     caseversions = loadLocalCaseversions(trainLocalJson)
+    # TODO: the targest show not be isDup = true/false, change it to X/Dup/Merge
+    # tags instead
     vectorized_features, targets = prepare_training_data(caseversions)
     model = fit(vectorized_features, targets)
 
@@ -294,9 +306,11 @@ def main_fit():
     #sudo apt-get install graphviz
     #dot -Tpdf iris.dot -o iris.pdf
     #from sklearn.externals.six import StringIO
+    # TODO: make this an command line option
     with open("output/model.dot", 'w') as f:
         f = tree.export_graphviz(model, out_file=f)
 
+    # TODO: make this an command line option
     model_filename = "output/latest_model.pkl"
     with open(model_filename, 'w') as f:
         pickle.dump(model, f)
@@ -323,20 +337,26 @@ def main_perdict():
     #sudo apt-get install graphviz
     #dot -Tpdf iris.dot -o iris.pdf
     #from sklearn.externals.six import StringIO
+    # TODO: make this an command line option
     with open("output/model.dot", 'w') as f:
         f = tree.export_graphviz(model, out_file=f)
 
+    # TODO: make this an command line option
     model_filename = "output/latest_model.pkl"
     with open(model_filename, 'w') as f:
         pickle.dump(model, f)
     logging.info("Model saved to " + model_filename)
 
     predictCaseversions = loadLocalCaseversions(perdictLocalJson)
+    # TODO: Rename "topranks", it was named toprank because I used to select the
+    # results with highest similarity score, but we don't use that score
+    # directly right now
     topranks = perdict(predictCaseversions, model) # This can be interrupted by Ctrl+C
 
     print("preparing data for saving to file")
     topranks['perdictions'] = topranks['perdictions'].tolist()
     print("saving to file")
+    # TODO: make this an command line option
     outputFilename = 'output/latest_output.json'
     with open(outputFilename , 'w') as f:
         json.dump(topranks, f, indent=2)
@@ -346,11 +366,13 @@ def main_perdict():
     dups = filter(lambda x: x[1], dups)
     dups = map(lambda x: x[0], dups)
 
+    # TODO: Why do we need this?
     print(output.printDups(dups))
 
 if __name__ == '__main__':
     import argparse
 
+    # TODO: remove this stupid default description
     parser = argparse.ArgumentParser(description='Process some integers.')
     parser.add_argument('mode', choices=['fit', 'cross-validate', 'perdict'],
                         help='The mode you want to learn')

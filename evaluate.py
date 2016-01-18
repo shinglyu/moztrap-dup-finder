@@ -3,6 +3,7 @@ import json
 import sys
 from sklearn import metrics
 
+#TODO: What is this file for?
 #TODO: make these cmd parameters
 groundtruth_file = "./input/ground-truth-217.csv"
 #output_file = "./output/latest_output.json"

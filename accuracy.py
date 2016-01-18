@@ -3,6 +3,8 @@ import json
 import sys
 from sklearn import metrics
 
+# TODO: create command line argument and doc for this file
+
 groundtruth_file = "./input/ground-truth-217.csv"
 #output_file = "./output/latest_output.json"
 #output_file = "./output/full_22_tfidf_remove_onoff_and_diffmodule.json"

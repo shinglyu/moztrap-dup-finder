@@ -1,6 +1,7 @@
 import json
 import difflib
 
+# TODO: make tfidf a filter too
 def calcDiff(lhs_text, rhs_text):
     lhs = lhs_text.split(' ')
     rhs = rhs_text.split(' ')

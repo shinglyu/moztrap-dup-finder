@@ -25,6 +25,7 @@ def drawGraph(topranks):
     plt.savefig("similarity.png") # save as png
     #plt.show()
 
+#TODO: we might not need the printOnOffPairs and printNotDup
 #FIXME: inefficient loop
 def printOnOffPairs(dups):
     for item in dups:
@@ -56,7 +57,10 @@ def printNotDup(notdups, reason):
             ))
 
 
+# TODO: printDups is the main output function for the excel file, rename and
+# refactor this.
 def printDups(dups):
+    # TODO: add fields for user to tag answer and comments
     for item in dups:
         # print("{0}\t is similiar to\t {1}\t with score\t {2}".format(
         #         item["lhs_id"],

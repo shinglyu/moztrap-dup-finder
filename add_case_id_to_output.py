@@ -1,5 +1,6 @@
 import json
 
+# TODO: integrate this into the output.py
 with open('./input/full_274.json') as f:
     caseversions = json.load(f)
 
