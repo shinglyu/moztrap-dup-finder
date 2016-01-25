@@ -5,6 +5,8 @@ Finding duplicated test cases in MozTrap https://moztrap.mozilla.org
 
 Run `install.sh` (for Ubuntu)
 
+Please be careful that this script will use "sudo" to acquire the root privileges. In that case, installation might put something that you do not want. Please carefully review the software to be installed. Also, please allow 0.5~1 hour of installing these packages.
+
 # Usage
 
 * Download test cases from Moztrap using `download_sample.sh`
@@ -17,7 +19,9 @@ Run `install.sh` (for Ubuntu)
 
 # Tips
 
-If you don't want to call the MozTrap API everytime, use `wget`/`curl` to download the this url: https://moztrap.mozilla.org/api/v1/caseversion/?format=json&productversion=217 as json file. And set the `localJson` variable to its filename. Then change `downloadCasevesions()` call to `loadLocalCaseversion(localJson)`.
+* If you don't want to call the MozTrap API everytime, use `wget`/`curl` to download the this url: https://moztrap.mozilla.org/api/v1/caseversion/?format=json&productversion=217 as json file. And set the `localJson` variable to its filename. Then change `downloadCasevesions()` call to `loadLocalCaseversion(localJson)`.
+* Please refer to http://scikit-learn.org/ for the artificial intelligence technology we are using. If you'd like to help us with improving this, you can dig into scikit or other AI tools further and let us know the ideas.
+
 
 # TODO
 * Define what is a duplication
