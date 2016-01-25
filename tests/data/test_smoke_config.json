@@ -1,0 +1,10 @@
+{
+  "trainLocalJson":"tests/data/full_217.json",
+  "groundtruth_filename":"",
+  "model_filename":"tests/tmp/test_smoke_model.pkl",
+  "perdictLocalJson":"tests/data/small_217.json",
+  "perdiction_filename":"tests/tmp/test_smoke_perdictions",
+  "mtorigin" : "https://moztrap.mozilla.org",
+  "productversion" : 217, 
+  "limit" : 10142
+}

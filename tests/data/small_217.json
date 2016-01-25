@@ -1,0 +1,534 @@
+{
+    "meta": {
+        "limit": 1000,
+        "next": "/api/v1/caseversion/?offset=1000&limit=1000&productversion=217&format=json",
+        "offset": 0,
+        "previous": null,
+        "total_count": 10135
+    },
+    "objects": [
+        {
+            "case": "/api/v1/case/706/",
+            "created_by": null,
+            "description": "",
+            "environments": [
+                {
+                    "elements": [
+                        "/api/v1/element/32/"
+                    ],
+                    "id": 161,
+                    "profile": "/api/v1/profile/8/",
+                    "resource_uri": "/api/v1/environment/161/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/43/"
+                    ],
+                    "id": 202,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/202/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/45/"
+                    ],
+                    "id": 203,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/203/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/50/"
+                    ],
+                    "id": 296,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/296/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/55/"
+                    ],
+                    "id": 347,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/347/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/64/"
+                    ],
+                    "id": 27665,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27665/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/63/"
+                    ],
+                    "id": 27671,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27671/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/69/"
+                    ],
+                    "id": 27692,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27692/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/73/"
+                    ],
+                    "id": 27834,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27834/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/72/"
+                    ],
+                    "id": 27835,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27835/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/57/"
+                    ],
+                    "id": 27928,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27928/"
+                }
+            ],
+            "id": 140738,
+            "modified_by": null,
+            "modified_on": "2015-01-12T03:14:48",
+            "name": "Reboot - using long tap/power",
+            "priority": "2",
+            "productversion": "/api/v1/productversion/217/",
+            "productversion_name": "Firefox OS v2.2",
+            "resource_uri": "/api/v1/caseversion/140738/",
+            "status": "active",
+            "steps": [
+                {
+                    "caseversion": "/api/v1/caseversion/140738/",
+                    "expected": "",
+                    "id": 459624,
+                    "instruction": "TBD",
+                    "number": 1,
+                    "resource_uri": "/api/v1/casestep/459624/"
+                }
+            ],
+            "tags": [
+                {
+                    "description": "",
+                    "id": 1533,
+                    "name": "hw-000",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/1533/"
+                },
+                {
+                    "description": "",
+                    "id": 2683,
+                    "name": "v1.0",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/2683/"
+                },
+                {
+                    "description": "",
+                    "id": 2879,
+                    "name": "hw sanity",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/2879/"
+                }
+            ]
+        },
+        {
+            "case": "/api/v1/case/707/",
+            "created_by": null,
+            "description": "",
+            "environments": [
+                {
+                    "elements": [
+                        "/api/v1/element/32/"
+                    ],
+                    "id": 161,
+                    "profile": "/api/v1/profile/8/",
+                    "resource_uri": "/api/v1/environment/161/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/43/"
+                    ],
+                    "id": 202,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/202/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/45/"
+                    ],
+                    "id": 203,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/203/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/50/"
+                    ],
+                    "id": 296,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/296/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/55/"
+                    ],
+                    "id": 347,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/347/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/64/"
+                    ],
+                    "id": 27665,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27665/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/63/"
+                    ],
+                    "id": 27671,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27671/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/69/"
+                    ],
+                    "id": 27692,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27692/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/73/"
+                    ],
+                    "id": 27834,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27834/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/72/"
+                    ],
+                    "id": 27835,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27835/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/57/"
+                    ],
+                    "id": 27928,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27928/"
+                }
+            ],
+            "id": 140739,
+            "modified_by": null,
+            "modified_on": "2015-01-12T03:14:48",
+            "name": "Silent mode - using long press/power",
+            "priority": "2",
+            "productversion": "/api/v1/productversion/217/",
+            "productversion_name": "Firefox OS v2.2",
+            "resource_uri": "/api/v1/caseversion/140739/",
+            "status": "active",
+            "steps": [
+                {
+                    "caseversion": "/api/v1/caseversion/140739/",
+                    "expected": "",
+                    "id": 459625,
+                    "instruction": "TBD",
+                    "number": 1,
+                    "resource_uri": "/api/v1/casestep/459625/"
+                }
+            ],
+            "tags": [
+                {
+                    "description": "",
+                    "id": 637,
+                    "name": "hw-001",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/637/"
+                },
+                {
+                    "description": "",
+                    "id": 2683,
+                    "name": "v1.0",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/2683/"
+                },
+                {
+                    "description": "",
+                    "id": 2879,
+                    "name": "hw sanity",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/2879/"
+                }
+            ]
+        },
+        {
+            "case": "/api/v1/case/708/",
+            "created_by": null,
+            "description": "Disabled, this case is a duplicate of  TC#3534\r\n\r\n\"As a user, I want the phone menu to display the high-level phone actions (including Turn off Airplane Mode, Silence Incoming Calls, Power off) when I long-press the power button,\r\nso I can easily control the phone's important states.\"\r\n\r\nPrerequisites:  Phone is in state where Airplane Mode is off.",
+            "environments": [
+                {
+                    "elements": [
+                        "/api/v1/element/32/"
+                    ],
+                    "id": 161,
+                    "profile": "/api/v1/profile/8/",
+                    "resource_uri": "/api/v1/environment/161/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/43/"
+                    ],
+                    "id": 202,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/202/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/45/"
+                    ],
+                    "id": 203,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/203/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/50/"
+                    ],
+                    "id": 296,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/296/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/55/"
+                    ],
+                    "id": 347,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/347/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/64/"
+                    ],
+                    "id": 27665,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27665/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/63/"
+                    ],
+                    "id": 27671,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27671/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/69/"
+                    ],
+                    "id": 27692,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27692/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/73/"
+                    ],
+                    "id": 27834,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27834/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/72/"
+                    ],
+                    "id": 27835,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27835/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/57/"
+                    ],
+                    "id": 27928,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27928/"
+                }
+            ],
+            "id": 140740,
+            "modified_by": null,
+            "modified_on": "2015-01-12T03:14:48",
+            "name": "Airplane mode - using long press/power",
+            "priority": "2",
+            "productversion": "/api/v1/productversion/217/",
+            "productversion_name": "Firefox OS v2.2",
+            "resource_uri": "/api/v1/caseversion/140740/",
+            "status": "disabled",
+            "steps": [
+                {
+                    "caseversion": "/api/v1/caseversion/140740/",
+                    "expected": "Phone menu is displayed with the following options:  \"Turn On Airplane mode\", \"Silence Incoming calls\", \"Restart\", \"Power off\".  There is also a \"Cancel\" button at the bottom.",
+                    "id": 459626,
+                    "instruction": "Long press the power button.",
+                    "number": 1,
+                    "resource_uri": "/api/v1/casestep/459626/"
+                }
+            ],
+            "tags": [
+                {
+                    "description": "",
+                    "id": 635,
+                    "name": "airplane mode",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/635/"
+                },
+                {
+                    "description": "",
+                    "id": 637,
+                    "name": "hw-001",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/637/"
+                },
+                {
+                    "description": "",
+                    "id": 2683,
+                    "name": "v1.0",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/2683/"
+                }
+            ]
+        },
+        {
+            "case": "/api/v1/case/1293/",
+            "created_by": null,
+            "description": "Prerequisites:\r\n- Create a contact person with a valid phone number in the Contacts App",
+            "environments": [
+                {
+                    "elements": [
+                        "/api/v1/element/55/"
+                    ],
+                    "id": 347,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/347/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/64/"
+                    ],
+                    "id": 27665,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27665/"
+                }
+            ],
+            "id": 140741,
+            "modified_by": null,
+            "modified_on": "2015-01-12T03:14:48",
+            "name": "[SMS] Sending SMS\t",
+            "priority": "4",
+            "productversion": "/api/v1/productversion/217/",
+            "productversion_name": "Firefox OS v2.2",
+            "resource_uri": "/api/v1/caseversion/140741/",
+            "status": "active",
+            "steps": [
+                {
+                    "caseversion": "/api/v1/caseversion/140741/",
+                    "expected": "",
+                    "id": 459627,
+                    "instruction": "1) on Homescreen launch Contacts App (Orange circle with a white person silhouette)\r\n\r\n",
+                    "number": 1,
+                    "resource_uri": "/api/v1/casestep/459627/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/140741/",
+                    "expected": "",
+                    "id": 459628,
+                    "instruction": "2) select a pre-existing contact person\r\n",
+                    "number": 2,
+                    "resource_uri": "/api/v1/casestep/459628/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/140741/",
+                    "expected": " \r\n",
+                    "id": 459629,
+                    "instruction": "3) Check if a phone number exists\r\n\r\n",
+                    "number": 3,
+                    "resource_uri": "/api/v1/casestep/459629/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/140741/",
+                    "expected": "In the Messaging App, the cursor is blinking in the textbox with a keyboard popped up\r\n\r\n",
+                    "id": 459630,
+                    "instruction": "4) Tap the SMS out icon on the far right\r\n\r\n",
+                    "number": 4,
+                    "resource_uri": "/api/v1/casestep/459630/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/140741/",
+                    "expected": " After hitting send, your message you typed will appear in the Message log\r\n Pull down the notification tray, and verify the same message appears in the notifications log",
+                    "id": 459631,
+                    "instruction": "Type in a message and hit \"Send\".\r\n\r\n",
+                    "number": 5,
+                    "resource_uri": "/api/v1/casestep/459631/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/140741/",
+                    "expected": "",
+                    "id": 459632,
+                    "instruction": "*",
+                    "number": 6,
+                    "resource_uri": "/api/v1/casestep/459632/"
+                }
+            ],
+            "tags": [
+                {
+                    "description": "",
+                    "id": 227,
+                    "name": "smoketest",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/227/"
+                },
+                {
+                    "description": "",
+                    "id": 236,
+                    "name": "gaia",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/236/"
+                },
+                {
+                    "description": "",
+                    "id": 1443,
+                    "name": "owd-13782",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/1443/"
+                },
+                {
+                    "description": "",
+                    "id": 2683,
+                    "name": "v1.0",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/2683/"
+                }
+            ]
+        }
+    ]
+}
