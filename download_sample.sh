@@ -7,13 +7,18 @@ fi
 
 
 
-MAXLIMIT=1000
-CHUNKCOUNT=11
+#MAXLIMIT=1000
+#CHUNKCOUNT=11
+
+MAXLIMIT=500
+CHUNKCOUNT=22
+
 for (( i = 0; i < $CHUNKCOUNT; i++ )); do
   OFFSET=$(( i * MAXLIMIT ))
   OUTPUT_FILE="input/full_$1_$OFFSET.json"
   #echo "https://moztrap.mozilla.org/api/v1/caseversion/?format=json&productversion=$1&offset=$OFFSET&limit=$MAXLIMIT" -O $OUTPUT_FILE
-  wget "https://moztrap.mozilla.org/api/v1/caseversion/?format=json&productversion=$1&offset=$OFFSET&limit=$MAXLIMIT" -O $OUTPUT_FILE
+  # We only download active cases
+  wget "https://moztrap.mozilla.org/api/v1/caseversion/?format=json&productversion=$1&offset=$OFFSET&limit=$MAXLIMIT&status=active" -O $OUTPUT_FILE
   echo "$OUTPUT_FILE downloaded"
 done
 
