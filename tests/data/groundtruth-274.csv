@@ -1,0 +1,4 @@
+Dup?,Merge?,Reason,Merged in Moztrap?,Case ID 1,Case ID 2,Case 1 ,Case 2,Diff,CaseVersion ID 1,CaseVersion ID 2
+No,Yes,actions perform on different target,Yes,706,707,https://moztrap.mozilla.org/manage/cases/?filter-id=706,https://moztrap.mozilla.org/manage/cases/?filter-id=707,http://shinglyu.github.io/moztrap-new-ui/diff.html?lhs=210201&rhs=210202,210201,210202
+Yep,No,Different test points in the two cases,,706,1696,https://moztrap.mozilla.org/manage/cases/?filter-id=706,https://moztrap.mozilla.org/manage/cases/?filter-id=1696,http://shinglyu.github.io/moztrap-new-ui/diff.html?lhs=210201&rhs=210521,210201,210521
+No,No,Different test points in the two cases,,706,2367,https://moztrap.mozilla.org/manage/cases/?filter-id=706,https://moztrap.mozilla.org/manage/cases/?filter-id=2367,http://shinglyu.github.io/moztrap-new-ui/diff.html?lhs=210201&rhs=211079,210201,211079

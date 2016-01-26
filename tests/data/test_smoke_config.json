@@ -1,6 +1,6 @@
 {
-  "trainLocalJson":"tests/data/full_217.json",
-  "groundtruth_filename":"",
+  "trainLocalJson":"tests/data/small_274_0.json",
+  "groundtruth_filename":"tests/data/groundtruth-274.csv",
   "model_filename":"tests/tmp/test_smoke_model.pkl",
   "perdictLocalJson":"tests/data/small_217.json",
   "perdiction_filename":"tests/tmp/test_smoke_perdictions",

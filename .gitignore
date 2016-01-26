@@ -1,0 +1,4 @@
+tests/tmp
+*.pyc
+.ropeproject
+

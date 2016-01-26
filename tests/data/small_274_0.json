@@ -1,0 +1,1077 @@
+{
+    "meta": {
+        "limit": 500,
+        "next": "/api/v1/caseversion/?status=active&format=json&limit=500&productversion=274&offset=500",
+        "offset": 0,
+        "previous": null,
+        "total_count": 8855
+    },
+    "objects": [
+        {
+            "case": "/api/v1/case/707/",
+            "created_by": null,
+            "description": "",
+            "environments": [
+                {
+                    "elements": [
+                        "/api/v1/element/32/"
+                    ],
+                    "id": 161,
+                    "profile": "/api/v1/profile/8/",
+                    "resource_uri": "/api/v1/environment/161/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/43/"
+                    ],
+                    "id": 202,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/202/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/45/"
+                    ],
+                    "id": 203,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/203/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/50/"
+                    ],
+                    "id": 296,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/296/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/55/"
+                    ],
+                    "id": 347,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/347/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/64/"
+                    ],
+                    "id": 27665,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27665/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/63/"
+                    ],
+                    "id": 27671,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27671/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/69/"
+                    ],
+                    "id": 27692,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27692/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/72/"
+                    ],
+                    "id": 27835,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27835/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/92/"
+                    ],
+                    "id": 28469,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/28469/"
+                }
+            ],
+            "id": 210202,
+            "modified_by": null,
+            "modified_on": "2016-01-21T08:52:07",
+            "name": " Test Silent mode and Reboot",
+            "priority": "2",
+            "productversion": "/api/v1/productversion/274/",
+            "productversion_name": "Firefox OS v2.6",
+            "resource_uri": "/api/v1/caseversion/210202/",
+            "status": "active",
+            "steps": [
+                {
+                    "caseversion": "/api/v1/caseversion/210202/",
+                    "expected": "The device turns to silent mode.",
+                    "id": 718122,
+                    "instruction": "Press the volume button and down to none.",
+                    "number": 1,
+                    "resource_uri": "/api/v1/casestep/718122/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210202/",
+                    "expected": "Device came to restart cartoon.",
+                    "id": 767124,
+                    "instruction": "Long press power button and tap Restart option.",
+                    "number": 2,
+                    "resource_uri": "/api/v1/casestep/767124/"
+                }
+            ],
+            "tags": [
+                {
+                    "description": "",
+                    "id": 637,
+                    "name": "hw-001",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/637/"
+                },
+                {
+                    "description": "",
+                    "id": 2683,
+                    "name": "v1.0",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/2683/"
+                },
+                {
+                    "description": "",
+                    "id": 2879,
+                    "name": "hw sanity",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/2879/"
+                }
+            ]
+        },
+        {
+            "case": "/api/v1/case/1293/",
+            "created_by": null,
+            "description": "Prerequisites:\r\n- Create a contact person with a valid phone number in the Contacts App",
+            "environments": [
+                {
+                    "elements": [
+                        "/api/v1/element/55/"
+                    ],
+                    "id": 347,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/347/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/64/"
+                    ],
+                    "id": 27665,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27665/"
+                }
+            ],
+            "id": 210201,
+            "modified_by": null,
+            "modified_on": "2015-11-12T07:23:02",
+            "name": "[SMS] Sending SMS\t",
+            "priority": "4",
+            "productversion": "/api/v1/productversion/274/",
+            "productversion_name": "Firefox OS v2.6",
+            "resource_uri": "/api/v1/caseversion/210204/",
+            "status": "active",
+            "steps": [
+                {
+                    "caseversion": "/api/v1/caseversion/210204/",
+                    "expected": "",
+                    "id": 718124,
+                    "instruction": "1) on Homescreen launch Contacts App (Orange circle with a white person silhouette)\r\n\r\n",
+                    "number": 1,
+                    "resource_uri": "/api/v1/casestep/718124/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210204/",
+                    "expected": "",
+                    "id": 718125,
+                    "instruction": "2) select a pre-existing contact person\r\n",
+                    "number": 2,
+                    "resource_uri": "/api/v1/casestep/718125/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210204/",
+                    "expected": " \r\n",
+                    "id": 718126,
+                    "instruction": "3) Check if a phone number exists\r\n\r\n",
+                    "number": 3,
+                    "resource_uri": "/api/v1/casestep/718126/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210204/",
+                    "expected": "In the Messaging App, the cursor is blinking in the textbox with a keyboard popped up\r\n\r\n",
+                    "id": 718127,
+                    "instruction": "4) Tap the SMS out icon on the far right\r\n\r\n",
+                    "number": 4,
+                    "resource_uri": "/api/v1/casestep/718127/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210204/",
+                    "expected": " After hitting send, your message you typed will appear in the Message log\r\n Pull down the notification tray, and verify the same message appears in the notifications log",
+                    "id": 718128,
+                    "instruction": "Type in a message and hit \"Send\".\r\n\r\n",
+                    "number": 5,
+                    "resource_uri": "/api/v1/casestep/718128/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210204/",
+                    "expected": "",
+                    "id": 718129,
+                    "instruction": "*",
+                    "number": 6,
+                    "resource_uri": "/api/v1/casestep/718129/"
+                }
+            ],
+            "tags": [
+                {
+                    "description": "",
+                    "id": 227,
+                    "name": "smoketest",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/227/"
+                },
+                {
+                    "description": "",
+                    "id": 236,
+                    "name": "gaia",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/236/"
+                },
+                {
+                    "description": "",
+                    "id": 1443,
+                    "name": "owd-13782",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/1443/"
+                },
+                {
+                    "description": "",
+                    "id": 2683,
+                    "name": "v1.0",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/2683/"
+                }
+            ]
+        },
+        {
+            "case": "/api/v1/case/1294/",
+            "created_by": null,
+            "description": "",
+            "environments": [
+                {
+                    "elements": [
+                        "/api/v1/element/32/"
+                    ],
+                    "id": 161,
+                    "profile": "/api/v1/profile/8/",
+                    "resource_uri": "/api/v1/environment/161/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/43/"
+                    ],
+                    "id": 202,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/202/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/45/"
+                    ],
+                    "id": 203,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/203/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/50/"
+                    ],
+                    "id": 296,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/296/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/55/"
+                    ],
+                    "id": 347,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/347/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/64/"
+                    ],
+                    "id": 27665,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27665/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/63/"
+                    ],
+                    "id": 27671,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27671/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/69/"
+                    ],
+                    "id": 27692,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27692/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/72/"
+                    ],
+                    "id": 27835,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27835/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/92/"
+                    ],
+                    "id": 28469,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/28469/"
+                }
+            ],
+            "id": 210521,
+            "modified_by": null,
+            "modified_on": "2016-01-21T08:39:53",
+            "name": "[Settings] Verify default list and categories",
+            "priority": "None",
+            "productversion": "/api/v1/productversion/274/",
+            "productversion_name": "Firefox OS v2.6",
+            "resource_uri": "/api/v1/caseversion/210205/",
+            "status": "active",
+            "steps": [
+                {
+                    "caseversion": "/api/v1/caseversion/210205/",
+                    "expected": "",
+                    "id": 718130,
+                    "instruction": "1. Launch the Setting App for the first time\r\n\r\n",
+                    "number": 1,
+                    "resource_uri": "/api/v1/casestep/718130/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210205/",
+                    "expected": "#Network & Connectivity\r\n- Airplane mode = unchecked\r\n- GPS = checked\r\n- Wifi = Not connected\r\n- Call Settings\r\n-Message Settings\r\n- Cellular & Data = <name of service provider> (if SIM card installed)\r\n- Bluetooth = Disabled\r\n-NFC= unchecked\r\n- Internet Sharing\r\n\r\n# Personalization\r\n- Sound\r\n- Display\r\n- Homescreen\r\n-Search\r\n-Navigation\r\n-Notifications\r\n-Date&Time\r\n- Language\r\n- Keyboard\r\n-Themes\r\n-Add-ones\r\n#Account Managment\r\n-Firefox Account\r\n-Find my Device\r\n-Firefox sync\r\n# Security & Privacy\r\n- Screen Lock\r\n-SIM Security\r\n-App Permissions\r\n-Do not Track\r\n-Browsing Privacy\r\n#Storge\r\n-USB Storage\r\n-Application Storage\r\n# Device\r\n-Device Information\r\n-Downloads\r\n-Battery\r\n- Accessibility\r\n- Developer\r\n-Improve Firefox OS\r\n-Help",
+                    "id": 767123,
+                    "instruction": "2. Confirm the list of default settings and values",
+                    "number": 2,
+                    "resource_uri": "/api/v1/casestep/767123/"
+                }
+            ],
+            "tags": [
+                {
+                    "description": "",
+                    "id": 237,
+                    "name": "settings",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/237/"
+                },
+                {
+                    "description": "",
+                    "id": 343,
+                    "name": "set-221",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/343/"
+                },
+                {
+                    "description": "",
+                    "id": 2683,
+                    "name": "v1.0",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/2683/"
+                }
+            ]
+        },
+        {
+            "case": "/api/v1/case/1295/",
+            "created_by": null,
+            "description": "As a user I want to be visually notified when Airplane mode is enabled or disabled so I can understand the state of my phones connections.\r\n\r\nPlease see this issue: https://bugzilla.mozilla.org/show_bug.cgi?id=1034455",
+            "environments": [
+                {
+                    "elements": [
+                        "/api/v1/element/32/"
+                    ],
+                    "id": 161,
+                    "profile": "/api/v1/profile/8/",
+                    "resource_uri": "/api/v1/environment/161/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/43/"
+                    ],
+                    "id": 202,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/202/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/45/"
+                    ],
+                    "id": 203,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/203/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/50/"
+                    ],
+                    "id": 296,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/296/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/55/"
+                    ],
+                    "id": 347,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/347/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/64/"
+                    ],
+                    "id": 27665,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27665/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/63/"
+                    ],
+                    "id": 27671,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27671/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/69/"
+                    ],
+                    "id": 27692,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27692/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/72/"
+                    ],
+                    "id": 27835,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27835/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/92/"
+                    ],
+                    "id": 28469,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/28469/"
+                }
+            ],
+            "id": 210206,
+            "modified_by": null,
+            "modified_on": "2015-11-12T07:23:02",
+            "name": "[Settings] Enabling / Disabling Airplane Mode",
+            "priority": "2",
+            "productversion": "/api/v1/productversion/274/",
+            "productversion_name": "Firefox OS v2.6",
+            "resource_uri": "/api/v1/caseversion/210206/",
+            "status": "active",
+            "steps": [
+                {
+                    "caseversion": "/api/v1/caseversion/210206/",
+                    "expected": "",
+                    "id": 718131,
+                    "instruction": "Launch Settings App.",
+                    "number": 1,
+                    "resource_uri": "/api/v1/casestep/718131/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210206/",
+                    "expected": "An airplane icon appears in the upper right hand corner of the status bar. If Wireless or Data connection icons were previously shown in the Status Bar, they should not appear if Airplane mode is enabled.",
+                    "id": 718132,
+                    "instruction": "Enable Airplane Mode.",
+                    "number": 2,
+                    "resource_uri": "/api/v1/casestep/718132/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210206/",
+                    "expected": "The airplane icon should not be present in notification tray with Airplane mode off. Wifi and/or Data connection icons should appear in the notification tray again if they were previously enabled.",
+                    "id": 718133,
+                    "instruction": "Disable Airplane Mode.",
+                    "number": 3,
+                    "resource_uri": "/api/v1/casestep/718133/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210206/",
+                    "expected": " Airplane mode is still functioning properly without issue.",
+                    "id": 718134,
+                    "instruction": "Repeat steps 2 and 3 at least 20 times\r\n",
+                    "number": 4,
+                    "resource_uri": "/api/v1/casestep/718134/"
+                }
+            ],
+            "tags": [
+                {
+                    "description": "",
+                    "id": 46,
+                    "name": "apps",
+                    "product": null,
+                    "resource_uri": "/api/v1/tag/46/"
+                },
+                {
+                    "description": "",
+                    "id": 237,
+                    "name": "settings",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/237/"
+                },
+                {
+                    "description": "",
+                    "id": 246,
+                    "name": "browser",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/246/"
+                },
+                {
+                    "description": "",
+                    "id": 350,
+                    "name": "set-222",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/350/"
+                },
+                {
+                    "description": "",
+                    "id": 635,
+                    "name": "airplane mode",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/635/"
+                },
+                {
+                    "description": "",
+                    "id": 2683,
+                    "name": "v1.0",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/2683/"
+                }
+            ]
+        },
+        {
+            "case": "/api/v1/case/1296/",
+            "created_by": null,
+            "description": "This case checks that the functionality of homescreen works when the phone is booted, and that you can unlock the device through the Lockscreen\r\n\r\n#Pre-Requisite:\r\n#-Have a Sim PIN set\r\n#-Have Lock Screen toggled ON\r\n#-Pin a variety of web pages to the homescreen.",
+            "environments": [
+                {
+                    "elements": [
+                        "/api/v1/element/55/"
+                    ],
+                    "id": 347,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/347/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/69/"
+                    ],
+                    "id": 27692,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27692/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/72/"
+                    ],
+                    "id": 27835,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27835/"
+                }
+            ],
+            "id": 211079,
+            "modified_by": null,
+            "modified_on": "2015-11-12T07:23:03",
+            "name": "[HOME SCREEN] Verify that the User can unlock the device and navigate the Homescreen",
+            "priority": "1",
+            "productversion": "/api/v1/productversion/274/",
+            "productversion_name": "Firefox OS v2.6",
+            "resource_uri": "/api/v1/caseversion/210207/",
+            "status": "active",
+            "steps": [
+                {
+                    "caseversion": "/api/v1/caseversion/210207/",
+                    "expected": "The device boots to the Lockscreen.",
+                    "id": 718135,
+                    "instruction": "Power on the device",
+                    "number": 1,
+                    "resource_uri": "/api/v1/casestep/718135/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210207/",
+                    "expected": "The device is unlocked and the Sim PIN disable prompt is given.",
+                    "id": 718136,
+                    "instruction": "On the Lockscreen, slide to the right to unlock the phone.",
+                    "number": 2,
+                    "resource_uri": "/api/v1/casestep/718136/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210207/",
+                    "expected": "Homescreen is launched and SIM is detected.",
+                    "id": 718137,
+                    "instruction": "Enter in SIM PIN to unlock SIM.",
+                    "number": 3,
+                    "resource_uri": "/api/v1/casestep/718137/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210207/",
+                    "expected": "All homescreen app icons are displayed correctly.",
+                    "id": 718138,
+                    "instruction": "Pan down on the homescreen.",
+                    "number": 4,
+                    "resource_uri": "/api/v1/casestep/718138/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210207/",
+                    "expected": "All homescreen app icons are displayed correctly. ",
+                    "id": 718139,
+                    "instruction": "Pan up on the homescreen.",
+                    "number": 5,
+                    "resource_uri": "/api/v1/casestep/718139/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210207/",
+                    "expected": "All pinned pages are displayed correctly. ",
+                    "id": 718140,
+                    "instruction": "Scroll to the left on the homescreen.",
+                    "number": 6,
+                    "resource_uri": "/api/v1/casestep/718140/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210207/",
+                    "expected": "All homescreen app icons are displayed correctly. ",
+                    "id": 718141,
+                    "instruction": "Scroll to the right. ",
+                    "number": 7,
+                    "resource_uri": "/api/v1/casestep/718141/"
+                }
+            ],
+            "tags": [
+                {
+                    "description": "",
+                    "id": 227,
+                    "name": "smoketest",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/227/"
+                },
+                {
+                    "description": "",
+                    "id": 236,
+                    "name": "gaia",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/236/"
+                },
+                {
+                    "description": "",
+                    "id": 1105,
+                    "name": "home-024",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/1105/"
+                },
+                {
+                    "description": "",
+                    "id": 1611,
+                    "name": "daily smoketest",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/1611/"
+                },
+                {
+                    "description": "",
+                    "id": 1791,
+                    "name": "in-qa-testsuite",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/1791/"
+                },
+                {
+                    "description": "",
+                    "id": 2683,
+                    "name": "v1.0",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/2683/"
+                },
+                {
+                    "description": "",
+                    "id": 2697,
+                    "name": "gfxregtest",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/2697/"
+                },
+                {
+                    "description": "",
+                    "id": 3046,
+                    "name": "automated",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/3046/"
+                }
+            ]
+        },
+        {
+            "case": "/api/v1/case/1297/",
+            "created_by": null,
+            "description": "It should be possible to launch all P0 apps from Homescreen without crashing or hanging.",
+            "environments": [
+                {
+                    "elements": [
+                        "/api/v1/element/32/"
+                    ],
+                    "id": 161,
+                    "profile": "/api/v1/profile/8/",
+                    "resource_uri": "/api/v1/environment/161/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/43/"
+                    ],
+                    "id": 202,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/202/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/45/"
+                    ],
+                    "id": 203,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/203/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/50/"
+                    ],
+                    "id": 296,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/296/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/55/"
+                    ],
+                    "id": 347,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/347/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/64/"
+                    ],
+                    "id": 27665,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27665/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/63/"
+                    ],
+                    "id": 27671,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27671/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/69/"
+                    ],
+                    "id": 27692,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27692/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/72/"
+                    ],
+                    "id": 27835,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27835/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/92/"
+                    ],
+                    "id": 28469,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/28469/"
+                }
+            ],
+            "id": 210208,
+            "modified_by": null,
+            "modified_on": "2015-11-12T07:23:03",
+            "name": "[HOME SCREEN] Launch Apps from Homescreen",
+            "priority": "1",
+            "productversion": "/api/v1/productversion/274/",
+            "productversion_name": "Firefox OS v2.6",
+            "resource_uri": "/api/v1/caseversion/210208/",
+            "status": "active",
+            "steps": [
+                {
+                    "caseversion": "/api/v1/caseversion/210208/",
+                    "expected": "Dialer launches.",
+                    "id": 718142,
+                    "instruction": "Launch the homescreen.  Open the dialer app.",
+                    "number": 1,
+                    "resource_uri": "/api/v1/casestep/718142/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210208/",
+                    "expected": "SMS app launches.",
+                    "id": 718143,
+                    "instruction": "Click home button.  Open the SMS app.",
+                    "number": 2,
+                    "resource_uri": "/api/v1/casestep/718143/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210208/",
+                    "expected": "Browser app launches.",
+                    "id": 718144,
+                    "instruction": "Click home button.  Open the Browser app.",
+                    "number": 3,
+                    "resource_uri": "/api/v1/casestep/718144/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210208/",
+                    "expected": "Contacts app launches.",
+                    "id": 718145,
+                    "instruction": "Click home button.  Open the Contacts app.",
+                    "number": 4,
+                    "resource_uri": "/api/v1/casestep/718145/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210208/",
+                    "expected": "Settings app launches.\r\n",
+                    "id": 718146,
+                    "instruction": "Click home button.  Open the Settings app.",
+                    "number": 5,
+                    "resource_uri": "/api/v1/casestep/718146/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210208/",
+                    "expected": "Camera app launches.",
+                    "id": 718147,
+                    "instruction": "Click the home button.  Open the Camera app.",
+                    "number": 6,
+                    "resource_uri": "/api/v1/casestep/718147/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210208/",
+                    "expected": "Gallery app launches.",
+                    "id": 718148,
+                    "instruction": "Click the home button.  Open the Gallery app.",
+                    "number": 7,
+                    "resource_uri": "/api/v1/casestep/718148/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210208/",
+                    "expected": "Marketplace app launches.",
+                    "id": 718149,
+                    "instruction": "Click the home button.  Open the Marketplace app.",
+                    "number": 8,
+                    "resource_uri": "/api/v1/casestep/718149/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210208/",
+                    "expected": "",
+                    "id": 718150,
+                    "instruction": "*",
+                    "number": 9,
+                    "resource_uri": "/api/v1/casestep/718150/"
+                }
+            ],
+            "tags": [
+                {
+                    "description": "",
+                    "id": 227,
+                    "name": "smoketest",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/227/"
+                },
+                {
+                    "description": "",
+                    "id": 236,
+                    "name": "gaia",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/236/"
+                },
+                {
+                    "description": "",
+                    "id": 927,
+                    "name": "home-001",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/927/"
+                },
+                {
+                    "description": "",
+                    "id": 2683,
+                    "name": "v1.0",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/2683/"
+                }
+            ]
+        },
+        {
+            "case": "/api/v1/case/1298/",
+            "created_by": null,
+            "description": "It should be possible to launch the dialer, make an outgoing call, and adjust the call volume while the call is active.",
+            "environments": [
+                {
+                    "elements": [
+                        "/api/v1/element/55/"
+                    ],
+                    "id": 347,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/347/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/64/"
+                    ],
+                    "id": 27665,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27665/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/63/"
+                    ],
+                    "id": 27671,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27671/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/69/"
+                    ],
+                    "id": 27692,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27692/"
+                },
+                {
+                    "elements": [
+                        "/api/v1/element/72/"
+                    ],
+                    "id": 27835,
+                    "profile": null,
+                    "resource_uri": "/api/v1/environment/27835/"
+                }
+            ],
+            "id": 210209,
+            "modified_by": null,
+            "modified_on": "2015-11-12T07:23:03",
+            "name": "[DIALER] Verify an outbound call can be made and that the Call Volume can be adjusted",
+            "priority": "1",
+            "productversion": "/api/v1/productversion/274/",
+            "productversion_name": "Firefox OS v2.6",
+            "resource_uri": "/api/v1/caseversion/210209/",
+            "status": "active",
+            "steps": [
+                {
+                    "caseversion": "/api/v1/caseversion/210209/",
+                    "expected": "Dialer launches .\r\n",
+                    "id": 718151,
+                    "instruction": "From the Homescreen, Launch the Dialer App.",
+                    "number": 1,
+                    "resource_uri": "/api/v1/casestep/718151/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210209/",
+                    "expected": "The Number is displayed as entered in the number field of the dialer.",
+                    "id": 718152,
+                    "instruction": "Dial a phone number including a Country and Area Code. ",
+                    "number": 2,
+                    "resource_uri": "/api/v1/casestep/718152/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210209/",
+                    "expected": "Phone call is initiated and the call rings out to the number dialled.",
+                    "id": 718153,
+                    "instruction": "Tap the \"Dial\" button.",
+                    "number": 3,
+                    "resource_uri": "/api/v1/casestep/718153/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210209/",
+                    "expected": "Both phones are connected to each other without issue.",
+                    "id": 718154,
+                    "instruction": "Answer the call on the other dut.",
+                    "number": 4,
+                    "resource_uri": "/api/v1/casestep/718154/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210209/",
+                    "expected": "Verify that the Call Volume gets louder.",
+                    "id": 718155,
+                    "instruction": "While on the call, adjust the volume rocker up.",
+                    "number": 5,
+                    "resource_uri": "/api/v1/casestep/718155/"
+                },
+                {
+                    "caseversion": "/api/v1/caseversion/210209/",
+                    "expected": "Verify that the Call Volume gets quieter.",
+                    "id": 718156,
+                    "instruction": "While on the call, adjust the volume rocker down",
+                    "number": 6,
+                    "resource_uri": "/api/v1/casestep/718156/"
+                }
+            ],
+            "tags": [
+                {
+                    "description": "",
+                    "id": 227,
+                    "name": "smoketest",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/227/"
+                },
+                {
+                    "description": "",
+                    "id": 236,
+                    "name": "gaia",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/236/"
+                },
+                {
+                    "description": "",
+                    "id": 1534,
+                    "name": "dialer-000",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/1534/"
+                },
+                {
+                    "description": "",
+                    "id": 1611,
+                    "name": "daily smoketest",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/1611/"
+                },
+                {
+                    "description": "",
+                    "id": 2584,
+                    "name": "not-fully-automated",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/2584/"
+                },
+                {
+                    "description": "",
+                    "id": 2683,
+                    "name": "v1.0",
+                    "product": "/api/v1/product/16/",
+                    "resource_uri": "/api/v1/tag/2683/"
+                }
+            ]
+        }
+    ]
+}
