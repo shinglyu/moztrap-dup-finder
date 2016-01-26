@@ -6,6 +6,8 @@ Finding duplicated test cases in MozTrap https://moztrap.mozilla.org
 Run `install.sh` (for Ubuntu)
 
 # Usage
+##Updated:##
+Read `tests/test_smoke.sh` for usage
 
 * Download test cases from Moztrap using `download_sample.sh`
 * Manually mark the duplications as in `input/ground-truth-217.csv`
