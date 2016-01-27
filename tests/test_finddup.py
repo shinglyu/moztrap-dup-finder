@@ -32,9 +32,57 @@ def test_loadGroundTruth():
 
     assert(groundtruth == expected)
 
+def test_loadGroundTruth_empty():
+    groundtruth = finddup.loadGroundTruth('tests/data/groundtruth-274-empty.csv')
+    expected = {
+        "perdictions": [
+            "none"
+        ],
+        "ids": [
+            {
+                "lhs_id": "210201",
+                "rhs_id": "210202"
+            },
+        ]
+    }
+
+    assert(groundtruth == expected)
+
+def test_loadGroundTruth_filter_by_csv():
+    cvs = finddup.loadLocalCaseversions('tests/data/small_274_0_key_error.json')
+    groundtruth = finddup.loadGroundTruth('tests/data/groundtruth-274.csv', cvs['objects'])
+    expected = {
+        "perdictions": [
+            "merge",
+            "none"
+        ],
+        "ids": [
+            {
+                "lhs_id": "210201",
+                "rhs_id": "210202"
+            }, # 210521 does not exist in csv
+            {
+                "lhs_id": "210201",
+                "rhs_id": "211079"
+            }
+        ]
+    }
+
+    assert(groundtruth == expected)
+
 def test_extractFeatures_select():
     cvs = finddup.loadLocalCaseversions('tests/data/small_274_0.json')
     gt = finddup.loadGroundTruth('tests/data/groundtruth-274.csv')
+    features = finddup.extractFeatures(cvs, gt['ids'])
+
+    assert(features.shape[0] == len(gt['perdictions']))
+    #TODO: test feature #
+    #assert(targets == gt['perdictions'])
+
+def test_extractFeatures_keyerror():
+    # Test when some groundtruth are not in the local caseversion file
+    cvs = finddup.loadLocalCaseversions('tests/data/small_274_0_key_error.json')
+    gt = finddup.loadGroundTruth('tests/data/groundtruth-274.csv', cvs['objects'])
     features = finddup.extractFeatures(cvs, gt['ids'])
 
     assert(features.shape[0] == len(gt['perdictions']))

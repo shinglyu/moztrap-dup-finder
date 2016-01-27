@@ -1,0 +1,2 @@
+Dup?,Merge?,Reason,Merged in Moztrap?,Case ID 1,Case ID 2,Case 1 ,Case 2,Diff,CaseVersion ID 1,CaseVersion ID 2
+,,actions perform on different target,Yes,706,707,https://moztrap.mozilla.org/manage/cases/?filter-id=706,https://moztrap.mozilla.org/manage/cases/?filter-id=707,http://shinglyu.github.io/moztrap-new-ui/diff.html?lhs=210201&rhs=210202,210201,210202

@@ -35,7 +35,9 @@ def loadLocalCaseversions(filename):
     with open(filename, "r") as f:
         return json.load(f)
 
-def loadGroundTruth(filename):
+def loadGroundTruth(filename, caseversions=[]):
+    existing_case_ids = map(lambda x:str(x['id']), caseversions)
+
     ids = []
     targets = [] # answers
     with open(filename, 'r') as csvfile:
@@ -43,15 +45,18 @@ def loadGroundTruth(filename):
         for row in rows: # has title row
             if row[0] == "Dup?":
                 continue # title row
-            if row[0][0] == "Y" or row[0][0] == "y":
+            if len(row[0]) > 0  and (row[0][0] == "Y" or row[0][0] == "y"):
                 target = "dup"
-            elif row[1][0] == "Y" or row[1][0] == "y":
+            elif len(row[1]) > 0  and (row[1][0] == "Y" or row[1][0] == "y"):
                 target = "merge"
             else:
                 target = "none"
 
             case1   = row[9]
             case2   = row[10]
+            # pdb.set_trace()
+            if len(existing_case_ids) > 0 and not (case1 in existing_case_ids and case2 in existing_case_ids):
+                continue # skip if the case does not exist in the casversion loaded
             ids.append({
                 "lhs_id": case1,
                 "rhs_id": case2,
@@ -61,7 +66,10 @@ def loadGroundTruth(filename):
 
 
 def genAllCombinations(caseversions):
-    return [{'lhs_id': caseversions['objects'][i]['id'], 'rhs_id': caseversions['objects'][j]['id'] } for i, j in itertools.combinations(range(len(caseversions['objects'])),2)]
+    logging.info("Found " + str(len(caseversions['objects'])) + " caseversions")
+    comb = [{'lhs_id': caseversions['objects'][i]['id'], 'rhs_id': caseversions['objects'][j]['id'] } for i, j in itertools.combinations(range(len(caseversions['objects'])),2)]
+    logging.info("Generated " + str(len(comb)) + " pairs")
+    return comb
 
 def extractFeatures(caseversions, selected_pairs):
     caseversions_sorted_by_id = sorted(caseversions['objects'], key=lambda x: x['id'])
@@ -80,6 +88,7 @@ def extractFeatures(caseversions, selected_pairs):
     #tfidf = vect.fit_transform(caseversion_texts)
     #pairwise_similarity = tfidf * tfidf.T
 
+    logging.info("Prepare to extract features from " + str(len(selected_pairs)) + " pairs")
     p = ProgressBar(len(selected_pairs))
     for pair in selected_pairs:
         # TODO: handle if groundtruth is not in the small set
@@ -94,6 +103,7 @@ def extractFeatures(caseversions, selected_pairs):
             #isdiffmodule = filters.isDifferentModule(diff)
 
         except KeyError:
+
             #similarity = 0 # Is this good?
             isonoff = False
             #isdiffmodule = False
@@ -128,7 +138,7 @@ def main_fit(config_file):
 
 
     caseversions = loadLocalCaseversions(config['trainLocalJson'])
-    groundtruth = loadGroundTruth(config['groundtruth_filename'])
+    groundtruth = loadGroundTruth(config['groundtruth_filename'], caseversions['objects'])
     vectorized_features= extractFeatures(caseversions, groundtruth['ids'])
     model = fit(vectorized_features, groundtruth['perdictions'])
 
@@ -163,16 +173,18 @@ def main_perdict(config_file):
 
     logging.info("Loaded model " + config['model_filename'])
 
+    logging.info("Extracting features")
     predictCaseversions = loadLocalCaseversions(config['perdictLocalJson'])
     combinations = genAllCombinations(predictCaseversions)
     vectorized_features = extractFeatures(predictCaseversions, combinations)
+    logging.info("Making perdictions")
     perdictions = perdict(vectorized_features, model) # This can be interrupted by Ctrl+C
 
     answer = {'ids': combinations, 'perdictions': perdictions}
 
-    print("preparing data for saving to file")
+    logging.info("preparing data for saving to file")
     answer['perdictions'] = answer['perdictions'].tolist()
-    print("saving to file")
+    logging.info("saving to file")
     rawJson = config['perdiction_filename'] + ".raw.json"
     with open(rawJson, 'w') as f:
         json.dump(answer, f, indent=2)
