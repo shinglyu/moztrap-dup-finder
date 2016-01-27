@@ -1,0 +1,10 @@
+{
+  "trainLocalJson":"input/full_274.json",
+  "groundtruth_filename":"input/groundtruth-274.csv",
+  "model_filename":"output/20160126_model.pkl",
+  "perdictLocalJson":"input/small_274.json",
+  "perdiction_filename":"output/20160126_perdiction",
+  "mtorigin" : "https://moztrap.mozilla.org",
+  "productversion" : 274, 
+  "limit" : 99999999
+}

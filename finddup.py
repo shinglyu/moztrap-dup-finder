@@ -40,6 +40,7 @@ def loadGroundTruth(filename, caseversions=[]):
 
     ids = []
     targets = [] # answers
+    # TODO: move this parsing part to output.py
     with open(filename, 'r') as csvfile:
         rows = csv.reader(csvfile, delimiter=",", quotechar="\"")
         for row in rows: # has title row
@@ -190,11 +191,7 @@ def main_perdict(config_file):
         json.dump(answer, f, indent=2)
     logging.info(rawJson+ " created")
 
-    dups = zip(answer['ids'], answer['perdictions'])
-    dups = filter(lambda x: x[1], dups)
-    dups = map(lambda x: x[0], dups)
-
-    outputCsv = output.printDups(dups)
+    outputCsv = output.formatResultCsv(answer)
 
     csv_filename = config['perdiction_filename'] + ".csv"
     with open(csv_filename, 'w') as f:
