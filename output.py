@@ -83,7 +83,6 @@ def printDups(dups):
             ))
         line += "\n"
         lines.append(line)
-    print(lines)
     return lines
 def formatResultCsv(results):
     dups = zip(results['ids'], results['perdictions'])
@@ -116,3 +115,26 @@ def formatResultCsv(results):
         )
         lines.append(line)
     return lines
+def parseResultCsv(lines):
+    ids = []
+    targets = [] # answers
+    for row in lines: # has title row
+        if row[0] == "Dup?":
+            continue # title row
+        if len(row[0]) > 0  and (row[0][0] == "Y" or row[0][0] == "y"):
+            target = "dup"
+        elif len(row[1]) > 0  and (row[1][0] == "Y" or row[1][0] == "y"):
+            target = "merge"
+        else:
+            target = "none"
+
+        case1   = row[9]
+        case2   = row[10]
+        # pdb.set_trace()
+        ids.append({
+            "lhs_id": case1,
+            "rhs_id": case2,
+        })
+        targets.append(target) #TODO: change to X/Dup/Merge tags
+
+    return {'ids': ids, 'perdictions': targets}

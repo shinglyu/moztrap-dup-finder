@@ -43,26 +43,17 @@ def loadGroundTruth(filename, caseversions=[]):
     # TODO: move this parsing part to output.py
     with open(filename, 'r') as csvfile:
         rows = csv.reader(csvfile, delimiter=",", quotechar="\"")
-        for row in rows: # has title row
-            if row[0] == "Dup?":
-                continue # title row
-            if len(row[0]) > 0  and (row[0][0] == "Y" or row[0][0] == "y"):
-                target = "dup"
-            elif len(row[1]) > 0  and (row[1][0] == "Y" or row[1][0] == "y"):
-                target = "merge"
-            else:
-                target = "none"
+        gt = output.parseResultCsv(rows)
 
-            case1   = row[9]
-            case2   = row[10]
-            # pdb.set_trace()
-            if len(existing_case_ids) > 0 and not (case1 in existing_case_ids and case2 in existing_case_ids):
-                continue # skip if the case does not exist in the casversion loaded
-            ids.append({
-                "lhs_id": case1,
-                "rhs_id": case2,
-            })
-            targets.append(target) #TODO: change to X/Dup/Merge tags
+    if len(existing_case_ids) > 0:
+        for idx in range(len(gt['ids'])):
+            case1 = gt['ids'][idx]['lhs_id']
+            case2 = gt['ids'][idx]['rhs_id']
+
+            if (case1 in existing_case_ids and case2 in existing_case_ids):
+                targets.append(gt['perdictions'][idx])
+                ids.append(gt['ids'][idx])
+
     return {'ids': ids, 'perdictions': targets}
 
 
