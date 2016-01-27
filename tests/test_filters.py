@@ -13,3 +13,11 @@ def test_calcDiffs():
     assert(len(selected_pairs) == len(diffs))
     assert(type(diffs[0]) == type([]))
     assert(type(diffs[0][0]) == type(""))
+
+def test_calcSimilarity():
+    cvs = finddup.loadLocalCaseversions('tests/data/small_274_0.json')
+    selected_pairs = finddup.genAllCombinations(cvs)[0:1]
+    diffs = filters.calcSimilarity(cvs, selected_pairs)
+    assert(len(selected_pairs) == len(diffs))
+    #assert(type(diffs[0]) == type([]))
+    #assert(type(diffs[0][0]) == type(""))

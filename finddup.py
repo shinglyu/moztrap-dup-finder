@@ -67,41 +67,49 @@ def genAllCombinations(caseversions):
     return comb
 
 def extractFeatures(caseversions, selected_pairs):
-    caseversions_sorted_by_id = sorted(caseversions['objects'], key=lambda x: x['id'])
+    #caseversions_sorted_by_id = sorted(caseversions['objects'], key=lambda x: x['id'])
     #print(caseversions_sorted_by_id)
-    idx_from_caseversion_id = dict((str(d['id']), i) for (i, d) in enumerate(caseversions_sorted_by_id))
+    #idx_from_caseversion_id = dict((str(d['id']), i) for (i, d) in enumerate(caseversions_sorted_by_id))
     #TODO: can we reduce the number of cases here?
     #TODO: find the intersection between the groundtruth and the caseversions
-    caseversion_texts = map(lambda x: json.dumps(x), caseversions_sorted_by_id)
+    #caseversion_texts = map(lambda x: json.dumps(x), caseversions_sorted_by_id)
 
     logging.info("Prepare to extract features from " + str(len(selected_pairs)) + " pairs")
 
 
     counter = 0
 
+    # Extracting similarity related features
+    p = ProgressBar(3)
+    p.update(1)
+    similarities = filters.calcSimilarity(caseversions, selected_pairs)
     #TODO enable similarity
     #vect = TfidfVectorizer(min_df=1)
     #tfidf = vect.fit_transform(caseversion_texts)
     #pairwise_similarity = tfidf * tfidf.T
 
     #p = ProgressBar(len(selected_pairs))
+    # Extracting diff related features
     diffs = filters.calcDiffs(caseversions, selected_pairs)
 
+    p.update(2)
     isonoffs = map(filters.isOnOffPairs, diffs)
+    p.update(3)
     isdiffmodules = map(filters.isDifferentModule, diffs)
             #isdiffmodule = filters.isDifferentModule(diff)
 
+    # Feature re-formatting
     def toDict(fields):
         return {
             "isonoff": fields[0],
-            "isdiffmodule": fields[1]
+            "isdiffmodule": fields[1],
+            "similarity": fields[2]
         }
 
-    features = map(toDict, zip(isonoffs, isdiffmodules))
-
-
+    features = map(toDict, zip(isonoffs, isdiffmodules, similarities))
     vec = DictVectorizer()
     vectorized_features = vec.fit_transform(features)
+    p.done()
 
     #p.done()
     return vectorized_features
