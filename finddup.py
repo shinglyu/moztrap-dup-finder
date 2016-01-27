@@ -38,13 +38,13 @@ def loadLocalCaseversions(filename):
 def loadGroundTruth(filename, caseversions=[]):
     existing_case_ids = map(lambda x:str(x['id']), caseversions)
 
-    ids = []
-    targets = [] # answers
     # TODO: move this parsing part to output.py
     with open(filename, 'r') as csvfile:
         rows = csv.reader(csvfile, delimiter=",", quotechar="\"")
         gt = output.parseResultCsv(rows)
 
+    ids = []
+    targets = [] # answers
     if len(existing_case_ids) > 0:
         for idx in range(len(gt['ids'])):
             case1 = gt['ids'][idx]['lhs_id']
@@ -53,13 +53,16 @@ def loadGroundTruth(filename, caseversions=[]):
             if (case1 in existing_case_ids and case2 in existing_case_ids):
                 targets.append(gt['perdictions'][idx])
                 ids.append(gt['ids'][idx])
+    else:
+        ids = gt['ids']
+        targets = gt['perdictions']
 
     return {'ids': ids, 'perdictions': targets}
 
 
 def genAllCombinations(caseversions):
     logging.info("Found " + str(len(caseversions['objects'])) + " caseversions")
-    comb = [{'lhs_id': caseversions['objects'][i]['id'], 'rhs_id': caseversions['objects'][j]['id'] } for i, j in itertools.combinations(range(len(caseversions['objects'])),2)]
+    comb = [{'lhs_id': str(caseversions['objects'][i]['id']), 'rhs_id': str(caseversions['objects'][j]['id']) } for i, j in itertools.combinations(range(len(caseversions['objects'])),2)]
     logging.info("Generated " + str(len(comb)) + " pairs")
     return comb
 
@@ -71,7 +74,8 @@ def extractFeatures(caseversions, selected_pairs):
     #TODO: find the intersection between the groundtruth and the caseversions
     caseversion_texts = map(lambda x: json.dumps(x), caseversions_sorted_by_id)
 
-    features = []
+    logging.info("Prepare to extract features from " + str(len(selected_pairs)) + " pairs")
+
 
     counter = 0
 
@@ -80,39 +84,26 @@ def extractFeatures(caseversions, selected_pairs):
     #tfidf = vect.fit_transform(caseversion_texts)
     #pairwise_similarity = tfidf * tfidf.T
 
-    logging.info("Prepare to extract features from " + str(len(selected_pairs)) + " pairs")
-    p = ProgressBar(len(selected_pairs))
-    for pair in selected_pairs:
-        # TODO: handle if groundtruth is not in the small set
-        #Extract similarity
-        try:
-            r = idx_from_caseversion_id[str(pair['lhs_id'])]
-            c = idx_from_caseversion_id[str(pair['rhs_id'])]
-            #similarity = pairwise_similarity[r, c] #"tfidf_diff": tfidf[i] - tfidf[j]
+    #p = ProgressBar(len(selected_pairs))
+    diffs = filters.calcDiffs(caseversions, selected_pairs)
 
-            diff  = filters.calcDiff(caseversion_texts[r], caseversion_texts[c])
-            isonoff = filters.isOnOffPairs(diff)
+    isonoffs = map(filters.isOnOffPairs, diffs)
+    isdiffmodules = map(filters.isDifferentModule, diffs)
             #isdiffmodule = filters.isDifferentModule(diff)
 
-        except KeyError:
+    def toDict(fields):
+        return {
+            "isonoff": fields[0],
+            "isdiffmodule": fields[1]
+        }
 
-            #similarity = 0 # Is this good?
-            isonoff = False
-            #isdiffmodule = False
-            continue
+    features = map(toDict, zip(isonoffs, isdiffmodules))
 
-        features.append({
-            #"similarity": similarity,
-            "isonoff": isonoff,
-            #"isdiffmodule": isdiffmodule
-        })
-        p.update(counter)
-        counter += 1
 
     vec = DictVectorizer()
     vectorized_features = vec.fit_transform(features)
 
-    p.done()
+    #p.done()
     return vectorized_features
 
 

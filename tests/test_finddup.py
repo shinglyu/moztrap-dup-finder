@@ -117,16 +117,16 @@ def test_genAllCombinations():
     }
     expected = [
         {
-            'lhs_id': 12345,
-            'rhs_id': 12346,
+            'lhs_id': '12345',
+            'rhs_id': '12346',
         },
         {
-            'lhs_id': 12345,
-            'rhs_id': 12347,
+            'lhs_id': '12345',
+            'rhs_id': '12347',
         },
         {
-            'lhs_id': 12346,
-            'rhs_id': 12347,
+            'lhs_id': '12346',
+            'rhs_id': '12347',
         }
     ]
     combinations = finddup.genAllCombinations(caseversions)
