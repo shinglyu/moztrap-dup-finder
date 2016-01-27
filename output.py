@@ -90,33 +90,29 @@ def formatResultCsv(results):
     # TODO: add fields for user to tag answer and comments
     lines = ["Dup?,Merge?,Reason,Merged in Moztrap?,Case ID 1,Case ID 2,Case 1 ,Case 2,Diff,CaseVersion ID 1,CaseVersion ID 2\n"]
     for item in dups:
-        line = ""
+        dup_or_merge = ""
         if item[1] == "dup":
-            line += "Yes,No,"
+            dup_or_merge = "Yes,No"
         elif item[1] == "merge":
-            line += "No,Yes,"
+            dup_or_merge = "No,Yes"
         else:
-            line += "No,No,"
+            dup_or_merge = "No,No"
 
-        line += ",,,,,,"
-        # print("{0}\t is similiar to\t {1}\t with score\t {2}".format(
-        #         item["lhs_id"],
-        #         item["rhs_id"],
-        #         #caseversions['objects'][item["lhs_id"]]['id'],
-        #         #caseversions['objects'][item["rhs_id"]]['id'],
-        #         item["val"])
-        #     ),
-
-        line += ("http://shinglyu.github.io/moztrap-new-ui/diff.html?lhs={0}&rhs={1},".format(
-                item[0]["lhs_id"],
-                item[0]["rhs_id"]
-                #caseversions['objects'][item["lhs_id"]]['id'],
-                #caseversions['objects'][item["rhs_id"]]['id'])
-            ))
-        line += ("{0},{1}".format(
+        diff_link = ("http://shinglyu.github.io/moztrap-new-ui/diff.html?lhs={0}&rhs={1}".format(
                 item[0]["lhs_id"],
                 item[0]["rhs_id"]
             ))
-        line += "\n"
+        line = "{dup_or_merge},{reason},{merged},{cid_lhs},{cid_rhs},{cid_rhs_link},{cid_lhs_link},{diff_link},{cvid_lhs},{cvid_rhs}\n".format(
+            dup_or_merge = dup_or_merge,
+            reason = "",
+            merged = "",
+            cid_lhs = "", #TODO
+            cid_rhs = "", #TODO
+            cid_rhs_link = "", #TODO
+            cid_lhs_link = "", #TODO
+            diff_link = diff_link,
+            cvid_lhs = item[0]["lhs_id"],
+            cvid_rhs = item[0]["rhs_id"],
+        )
         lines.append(line)
     return lines
