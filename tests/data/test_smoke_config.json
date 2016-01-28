@@ -6,5 +6,5 @@
   "perdiction_filename":"tests/tmp/test_smoke_perdictions",
   "mtorigin" : "https://moztrap.mozilla.org",
   "productversion" : 217, 
-  "limit" : 10142
+  "slice_size":3 
 }

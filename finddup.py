@@ -61,10 +61,19 @@ def loadGroundTruth(filename, caseversions=[]):
 
 
 def genAllCombinations(caseversions):
-    logging.info("Found " + str(len(caseversions['objects'])) + " caseversions")
-    comb = [{'lhs_id': str(caseversions['objects'][i]['id']), 'rhs_id': str(caseversions['objects'][j]['id']) } for i, j in itertools.combinations(range(len(caseversions['objects'])),2)]
-    logging.info("Generated " + str(len(comb)) + " pairs")
+    cvs_count = len(caseversions['objects'])
+    logging.info("Found " + str(cvs_count) + " caseversions")
+    comb = ({'lhs_id': str(caseversions['objects'][i]['id']), 'rhs_id': str(caseversions['objects'][j]['id']) } for i, j in itertools.combinations(range(len(caseversions['objects'])),2))
+    logging.info("Generated " + str(cvs_count * (cvs_count - 1 )/2) + " pairs")
     return comb
+
+def getCombinationSlice(n, combination_iter):
+    it = iter(combination_iter)
+    while True:
+        chunk = list(itertools.islice(it, n))
+        if not chunk:
+            return
+        yield chunk
 
 def extractFeatures(caseversions, selected_pairs):
     #caseversions_sorted_by_id = sorted(caseversions['objects'], key=lambda x: x['id'])
@@ -166,27 +175,39 @@ def main_perdict(config_file):
 
     logging.info("Extracting features")
     predictCaseversions = loadLocalCaseversions(config['perdictLocalJson'])
-    combinations = genAllCombinations(predictCaseversions)
-    vectorized_features = extractFeatures(predictCaseversions, combinations)
-    logging.info("Making perdictions")
-    perdictions = perdict(vectorized_features, model) # This can be interrupted by Ctrl+C
+    comb_it = genAllCombinations(predictCaseversions)
+    # TODO: extract the slice size to config
 
-    answer = {'ids': combinations, 'perdictions': perdictions}
+    slice_num = 1
+    for combinations in getCombinationSlice(config['slice_size'],comb_it):
+        vectorized_features = extractFeatures(predictCaseversions, combinations)
+        logging.info("Making perdictions")
+        perdictions = perdict(vectorized_features, model) # This can be interrupted by Ctrl+C
 
-    logging.info("preparing data for saving to file")
-    answer['perdictions'] = answer['perdictions'].tolist()
-    logging.info("saving to file")
-    rawJson = config['perdiction_filename'] + ".raw.json"
-    with open(rawJson, 'w') as f:
-        json.dump(answer, f, indent=2)
-    logging.info(rawJson+ " created")
+        answer = {'ids': combinations, 'perdictions': perdictions}
 
-    outputCsv = output.formatResultCsv(answer)
+        logging.info("preparing data for saving to file")
+        answer['perdictions'] = answer['perdictions'].tolist()
+        logging.info("saving to file")
+        rawJson = "{perdiction_filename}_{slice_num}.raw.json".format(
+            perdiction_filename = config['perdiction_filename'],
+            slice_num = str(slice_num)
+        )
+        with open(rawJson, 'w') as f:
+            json.dump(answer, f, indent=2)
+        logging.info(rawJson+ " created")
 
-    csv_filename = config['perdiction_filename'] + ".csv"
-    with open(csv_filename, 'w') as f:
-        f.writelines(outputCsv)
-    logging.info(csv_filename+ " created")
+        outputCsv = output.formatResultCsv(answer)
+
+        csv_filename = "{perdiction_filename}_{slice_num}.csv".format(
+            perdiction_filename = config['perdiction_filename'],
+            slice_num = str(slice_num)
+        )
+        with open(csv_filename, 'w') as f:
+            f.writelines(outputCsv)
+        logging.info(csv_filename+ " created")
+
+        slice_num += 1
 
 def main():
 

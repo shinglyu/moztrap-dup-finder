@@ -22,6 +22,8 @@ function checkFileExist {
 }
 
 
+rm tests/tmp/*
+
 # Test start
 # training
 python finddup.py fit tests/data/test_smoke_config.json 
@@ -32,8 +34,10 @@ python finddup.py fit tests/data/test_smoke_config.json
 # perdiction
 python finddup.py perdict tests/data/test_smoke_config.json 
 
-  checkFileExist tests/tmp/test_smoke_perdictions.raw.json
+  checkFileExist tests/tmp/test_smoke_perdictions_1.raw.json
+  checkFileExist tests/tmp/test_smoke_perdictions_1.csv
 
-  checkFileExist tests/tmp/test_smoke_perdictions.csv
+  checkFileExist tests/tmp/test_smoke_perdictions_2.raw.json
+  checkFileExist tests/tmp/test_smoke_perdictions_2.csv
 
 echo "[PASS]"

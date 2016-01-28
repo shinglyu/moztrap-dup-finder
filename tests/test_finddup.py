@@ -92,7 +92,7 @@ def test_extractFeatures_keyerror():
 def test_extractFeatures_default():
     cvs = finddup.loadLocalCaseversions('tests/data/small_274_0.json')
     #gt = finddup.loadGroundTruth('tests/data/groundtruth-274.csv')
-    comb = finddup.genAllCombinations(cvs) #FIXME: remove this dependency
+    comb = [x for x in finddup.genAllCombinations(cvs)] #FIXME: remove this dependency
     features = finddup.extractFeatures(cvs, comb)
 
     print(len(cvs['objects']))
@@ -129,8 +129,34 @@ def test_genAllCombinations():
             'rhs_id': '12347',
         }
     ]
-    combinations = finddup.genAllCombinations(caseversions)
+    comb_it = finddup.genAllCombinations(caseversions)
+    combinations = [next(comb_it) for i in range(3)]
     #gt = finddup.loadGroundTruth('tests/data/groundtruth-274.csv')
     assert(expected == combinations)
     #TODO: test feature #
     #assert(targets == gt['perdictions'])
+
+def test_getCombinationSlice():
+    caseversions = {
+        "objects":[
+            {
+                'id': 12345
+            },
+            {
+                'id': 12346
+            },
+            {
+                'id': 12347
+            },
+            {
+                'id': 12348
+            }
+        ]
+    }
+    comb_it = finddup.genAllCombinations(caseversions)
+
+    count = 0
+    for s in finddup.getCombinationSlice(3, comb_it):
+        assert(3 == len(s))
+        count += 1
+    assert(2 == count)
