@@ -98,7 +98,7 @@ def extractFeatures(caseversions, selected_pairs):
     # Extracting similarity related features
     p = ProgressBar(3)
     p.update(1)
-    similarities = filters.calcSimilarity(caseversions, selected_pairs)
+    #similarities = filters.calcSimilarity(caseversions, selected_pairs)
     #TODO enable similarity
     #vect = TfidfVectorizer(min_df=1)
     #tfidf = vect.fit_transform(caseversion_texts)
@@ -119,10 +119,11 @@ def extractFeatures(caseversions, selected_pairs):
         return {
             "isonoff": fields[0],
             "isdiffmodule": fields[1],
-            "similarity": fields[2]
+            #"similarity": fields[2]
         }
 
-    features = map(toDict, zip(isonoffs, isdiffmodules, similarities))
+    #features = map(toDict, zip(isonoffs, isdiffmodules, similarities))
+    features = map(toDict, zip(isonoffs, isdiffmodules))
     vec = DictVectorizer()
     vectorized_features = vec.fit_transform(features)
     p.done()
@@ -132,6 +133,7 @@ def extractFeatures(caseversions, selected_pairs):
 
 
 def fit(vectorized_features, targets):
+    #TODO: move this depth to config
     clf = tree.DecisionTreeClassifier(max_depth=3)
     clf = clf.fit(vectorized_features, targets)
     return clf
