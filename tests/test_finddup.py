@@ -160,3 +160,82 @@ def test_getCombinationSlice():
         assert(3 == len(s))
         count += 1
     assert(2 == count)
+
+def test_getCombinationSlice_step():
+    caseversions = {
+        "objects":[
+            {
+                'id': 12345
+            },
+            {
+                'id': 12346
+            },
+            {
+                'id': 12347
+            },
+            {
+                'id': 12348
+            },
+            {
+                'id': 12349
+            }
+        ]
+    }
+    comb_it = finddup.genAllCombinations(caseversions)
+
+    count = 0
+    for s in finddup.getCombinationSlice(3, comb_it, step=3):
+        count += 1
+        if (count == 2):
+            assert(1 == len(s))
+        else:
+            assert(3 == len(s))
+        print(s)
+    assert(2 == count)
+def test_loadGroundTruth():
+    groundtruth = finddup.loadGroundTruth('tests/data/groundtruth-274.csv')
+    expected = {
+        "perdictions": [
+            "merge",
+            "dup",
+            "none"
+        ],
+        "ids": [
+            {
+                "lhs_id": "210201",
+                "rhs_id": "210202"
+            },
+            {
+                "lhs_id": "210201",
+                "rhs_id": "210521"
+            },
+            {
+                "lhs_id": "210201",
+                "rhs_id": "211079"
+            }
+        ]
+    }
+
+    assert(groundtruth == expected)
+
+def test_transformTargetLabels():
+    inputLabels = [
+            "merge",
+            "dup",
+            "none"
+        ]
+    inputLabelClasses = [
+            "merge",
+            "dup",
+            "none"
+        ]
+    expectedNums = [1,0,2]
+    expectedClasses = ["dup", "merge", "none"]
+    transformed_label, classes = finddup.transformTargetLabels(inputLabels, inputLabelClasses)
+
+    print(transformed_label)
+    print(classes)
+    for i in range(len(expectedNums)):
+        assert(expectedNums[i] == transformed_label[i])
+    for i in range(len(expectedClasses)):
+        assert(expectedClasses[i] == classes[i])

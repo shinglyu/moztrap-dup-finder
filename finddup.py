@@ -6,12 +6,14 @@ import urllib2
 import json
 import itertools
 from sklearn.feature_extraction import DictVectorizer
+from sklearn.preprocessing import LabelEncoder
 from sklearn import tree
 from sklearn import cross_validation, metrics
 import csv
 import pdb
 import pickle
 import logging
+import os
 
 import filters
 from progressbar import ProgressBar
@@ -59,6 +61,10 @@ def loadGroundTruth(filename, caseversions=[]):
 
     return {'ids': ids, 'perdictions': targets}
 
+def transformTargetLabels(labels, classes):
+    le = LabelEncoder()
+    le.fit(classes)
+    return le.transform(labels), le.classes_
 
 def genAllCombinations(caseversions):
     cvs_count = len(caseversions['objects'])
@@ -67,10 +73,11 @@ def genAllCombinations(caseversions):
     logging.info("Generated " + str(cvs_count * (cvs_count - 1 )/2) + " pairs")
     return comb
 
-def getCombinationSlice(n, combination_iter):
+def getCombinationSlice(n, combination_iter, step=1):
+    logging.info("Getting " + str(n) + " pairs with sampling step of " + str(step))
     it = iter(combination_iter)
     while True:
-        chunk = list(itertools.islice(it, n))
+        chunk = list(itertools.islice(it, 0, n*step, step))
         if not chunk:
             return
         yield chunk
@@ -139,16 +146,27 @@ def main_fit(config_file):
 
     caseversions = loadLocalCaseversions(config['trainLocalJson'])
     groundtruth = loadGroundTruth(config['groundtruth_filename'], caseversions['objects'])
-    vectorized_features= extractFeatures(caseversions, groundtruth['ids'])
-    model = fit(vectorized_features, groundtruth['perdictions'])
+    vectorized_features = extractFeatures(caseversions, groundtruth['ids'])
+    labels = ['dup', 'merge', 'none'] #TODO:Move to config
+    transformed_labels, classes = transformTargetLabels(groundtruth['perdictions'],labels)
+    #print(transformed_labels)
+    #print(classes)
+    model = fit(vectorized_features, transformed_labels)
 
 
     #Drawing decision tree
     #sudo apt-get install graphviz
     #dot -Tpdf iris.dot -o iris.pdf
     #from sklearn.externals.six import StringIO
-    with open("output/model.dot", 'w') as f:
-        f = tree.export_graphviz(model, out_file=f)
+    with open(config['model_filename'] + ".dot", 'w') as f:
+        f = tree.export_graphviz(model, out_file=f,
+                                 feature_names=['isonoff', 'isdiffmodule', 'similarity'], #TODO: move this to config, and let extractFeature read this
+                                 class_names=classes
+                                 )
+        #os.system("dot -Tpdf {infile} -o {outfile}".format(
+        #    infile = config['model_filename'] + ".dot",
+        #    outfile = config['model_filename'] + ".pdf",
+        #))
 
     with open(config['model_filename'], 'w') as f:
         pickle.dump(model, f)
@@ -178,8 +196,12 @@ def main_perdict(config_file):
     comb_it = genAllCombinations(predictCaseversions)
     # TODO: extract the slice size to config
 
+    labels = ['dup', 'merge', 'none'] #TODO:Move to config
+    # TODO: this does not align with the fit function
+    le = LabelEncoder()
+    le.fit(labels)
     slice_num = 1
-    for combinations in getCombinationSlice(config['slice_size'],comb_it):
+    for combinations in getCombinationSlice(config['slice_size'],comb_it, step=config.get('sample_step', 1)):
         vectorized_features = extractFeatures(predictCaseversions, combinations)
         logging.info("Making perdictions")
         perdictions = perdict(vectorized_features, model) # This can be interrupted by Ctrl+C
@@ -187,7 +209,7 @@ def main_perdict(config_file):
         answer = {'ids': combinations, 'perdictions': perdictions}
 
         logging.info("preparing data for saving to file")
-        answer['perdictions'] = answer['perdictions'].tolist()
+        answer['perdictions'] = le.inverse_transform(answer['perdictions']).tolist()
         logging.info("saving to file")
         rawJson = "{perdiction_filename}_{slice_num}.raw.json".format(
             perdiction_filename = config['perdiction_filename'],

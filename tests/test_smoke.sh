@@ -22,7 +22,7 @@ function checkFileExist {
 }
 
 
-rm tests/tmp/*
+rm -f tests/tmp/*
 
 # Test start
 # training
