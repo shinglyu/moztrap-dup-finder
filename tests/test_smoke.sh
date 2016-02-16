@@ -26,6 +26,11 @@ rm -f tests/tmp/*
 
 # Test start
 # training
+
+if [ ! -d "tests/tmp/" ]; then
+  mkdir tests/tmp/
+fi
+
 python finddup.py fit tests/data/test_smoke_config.json 
 
   checkFileExist tests/tmp/test_smoke_model.pkl
