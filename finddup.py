@@ -19,7 +19,7 @@ import filters
 from progressbar import ProgressBar
 
 
-from config import *
+#from config import *
 import output
 
 logging.basicConfig(level=logging.INFO)
